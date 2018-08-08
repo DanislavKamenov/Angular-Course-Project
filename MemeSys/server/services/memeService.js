@@ -1,40 +1,40 @@
-const Category = require('../models/Category');
+const Meme = require('../models/Meme');
 const crud = require('../infrastructure/crud');
 
-const categoryCrud = crud(Category);
+const memeCrud = crud(Meme);
 
 module.exports = {
-    create: category => 
+    create: meme => 
         new Promise((resolve, reject) => {
-            categoryCrud
-                .create(category)
+            memeCrud
+                .create(meme)
                 .then(resolve)
                 .catch(reject);
         }),
     getAll: (options, populate) => 
         new Promise((resolve, reject) => {
-            categoryCrud
+            memeCrud
                 .getAll(options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
     get: (query, options, populate) => 
         new Promise((resolve, reject) => {
-            categoryCrud
+            memeCrud
                 .get(query, options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
     getOne: (query, options, populate) => 
         new Promise((resolve, reject) => {
-            categoryCrud
+            memeCrud
                 .getOne(query, options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
     update: (query, updatedEntity, options) => 
         new Promise((resolve, reject) => {
-            categoryCrud
+            memeCrud
                 .update(query, updatedEntity, options)
                 .then(resolve)
                 .catch(reject);
@@ -42,14 +42,14 @@ module.exports = {
     //Remove functions need to be expanded to handle the DB hierarcy
     removeOne: (query, options) => 
         new Promise((resolve, reject) => {
-            categoryCrud
+            memeCrud
                 .removeOne(query, options)
                 .then(resolve)
                 .catch(reject);
         }),
     removeMany: (query) => 
         new Promise((resolve, reject) => {
-            categoryCrud
+            memeCrud
                 .removeMany(query)
                 .then(resolve)
                 .catch(reject);

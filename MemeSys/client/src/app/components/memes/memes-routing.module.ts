@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MemeComponent } from './meme/meme.component';
+import { MemeListComponent } from './meme-list/meme-list.component';
 
 const memeRoutes: Routes = [
-    { path: 'meme', component: MemeComponent }
+    { path: 'meme', component: MemeListComponent }
 ]
 
 @NgModule({

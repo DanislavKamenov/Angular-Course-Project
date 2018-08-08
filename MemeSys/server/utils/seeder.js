@@ -1,23 +1,65 @@
-const Role = require('../models/Role');
-const User = require('../models/User');
+const roleService = require('../services/roleService');
+const userService = require('../services/userService');
 const categoryService = require('../services/categoryService');
 const commentService = require('../services/commentService');
+const memeService = require('../services/memeService');
+
 const categories = require('./mock-data/categories');
+const memes = require('./mock-data/memes');
 
 function seedCategoriesWithUser(userId) {
-    categories.forEach(c => c.creator = userId);
+    categories.map(c => c.creator = userId);
     categoryService
         .create(categories)
-        .then(categories => console.log('categories seeded!'))
+        .then(categories => {
+            console.log('categories seeded!')
+            seedMemesWithUser();
+        })
         .catch(err => console.log(err));
 
 }
 
-module.exports =  {
+function seedMemesWithUser() {
+    userService
+        .getAll()
+        .then(users => {
+            categoryService.getAll()
+                .then(cats => {
+                    const admin = users.filter(u => u.name === 'Admin')[0];
+                    // const pesho = users.filter(u => u.name === 'Pesho')[0];
+
+                    const classicNakov = cats.filter(c => c.name === 'Classic Nakov')[0];
+                    const surreal = cats.filter(c => c.name === 'Surreal Memes')[0];
+                    const classicalArt = cats.filter(c => c.name === 'Classical Art Memes')[0];
+
+                    memes.nakov.map(m => {
+                        m.creator = admin._id;
+                        m.category = classicNakov._id;
+                    });
+                    memes.surreal.map(m => {
+                        m.creator = admin._id;
+                        m.category = surreal._id;
+                    });
+                    memes.classicalArt.map(m => {
+                        m.creator = admin._id;
+                        m.category = classicalArt._id;
+                    });
+                    const memeArr = [...memes.nakov, ...memes.surreal, ...memes.classicalArt];
+
+                    memeService
+                        .create(memeArr)
+                        .then(() => console.log('memes seeded!'))
+                        .catch(console.log);
+                }).catch(console.log);
+        })
+        .catch(console.log);
+}
+
+module.exports = {
     seedRolesAndAdmin: () => {
         return new Promise((resolve, reject) => {
-            Role
-                .insertMany([{ name: 'Admin' }, { name: 'User' }])
+            roleService
+                .create([{ name: 'Admin' }, { name: 'User' }])
                 .then((roles) => {
                     console.log('Roles Seeded!');
 
@@ -28,7 +70,7 @@ module.exports =  {
                         roles: [roles[0]._id, roles[1]._id]
                     };
 
-                    User
+                    userService
                         .create(admin)
                         .then((user) => {
                             console.log('Admin seeded!');
@@ -46,7 +88,7 @@ module.exports =  {
     },
     seedUser(email, name, pwd, newRoles, avatar) {
         return new Promise((resolve, reject) => {
-            Role.find({ name: { $in: newRoles } })
+            roleService.get({ name: { $in: newRoles } })
                 .then(roles => {
                     let normalUser = {
                         email: email,
@@ -56,7 +98,7 @@ module.exports =  {
                         roles: roles.map(r => r._id)
                     };
 
-                    User
+                    userService
                         .create(normalUser)
                         .then((user) => {
                             console.log(`${user.name} seeded!`);
@@ -68,5 +110,5 @@ module.exports =  {
 
                 });
         });
-    }    
+    }
 };

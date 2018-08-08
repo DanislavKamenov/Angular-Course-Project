@@ -23,7 +23,7 @@ export class NavigationComponent {
     }
 
     makeAPICall(): void {
-        this.http.get('api/category/all').subscribe(console.log);
+        this.http.get('api/meme').subscribe(console.log);
     }
 
     get isUserLoggedIn(): boolean {

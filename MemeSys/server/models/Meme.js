@@ -13,6 +13,10 @@ const memeSchema = mongoose.Schema({
         type: mongoose.SchemaTypes.String,
         required: true
     },
+    category: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Category'
+    },
     upVoted: [{
         type: mongoose.SchemaTypes.String,
         default: []

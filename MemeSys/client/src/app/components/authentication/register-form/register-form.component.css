@@ -1,0 +1,3 @@
+.invalid-feedback div::first-letter {
+    text-transform: uppercase;
+}

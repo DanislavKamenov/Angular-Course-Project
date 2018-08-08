@@ -1,0 +1,9 @@
+footer {
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    width: 5%;
+    transform: translateY(-20%);
+}

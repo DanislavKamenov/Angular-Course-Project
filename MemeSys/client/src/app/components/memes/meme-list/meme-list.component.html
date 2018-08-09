@@ -1,3 +1,6 @@
-<div *ngFor="let m of memes$ | async">
-    <app-meme [meme]="m"></app-meme>
+<app-group-list></app-group-list>
+<div class="meme-page">
+    <div class="meme-container" *ngFor="let m of memes$ | async">
+        <app-meme [meme]="m"></app-meme>
+    </div>
 </div>

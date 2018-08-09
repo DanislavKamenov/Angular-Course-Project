@@ -15,11 +15,6 @@ export class MemeListComponent implements OnInit {
     constructor(private memeService: MemeService) { }
 
     ngOnInit(): void {
-        this.getAllMemes();
-    }
-
-    getAllMemes(): void {
         this.memes$ = this.memeService.getAllMemes();
     }
-
 }

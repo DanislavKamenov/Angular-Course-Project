@@ -1,7 +1,7 @@
-export interface ServerResponse {
+export interface ServerResponse<T> {
     success: boolean;
     statusCode: number;
     message: string;
-    data?: object;
-    errors?: { string };
+    data?: {[key: string]: T};
+    errors?: { [key: string]: T };
 }

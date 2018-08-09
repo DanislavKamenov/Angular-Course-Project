@@ -3,24 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Meme } from '../models/meme.model';
 import { ServerResponse } from '../../../core/models/server-response.model';
+import { Category } from '../../shared/models/category.model';
 
-const root: string = '/api/';
+const root = '/api/';
 
 @Injectable({
     providedIn: 'root'
 })
-export class MemeService {
-    private allUrl: string = root + 'meme';
-
+export class CategoryService {
+    private allUrl: string = root + 'category';
+    
     constructor(private http: HttpClient) { }
 
-    getAllMemes(): Observable<Meme[]> {
+    getAllCategories(): Observable<Category[]> {
         return this.http
-            .get<ServerResponse<Meme[]>>(this.allUrl)
-            .pipe(
-                map(res => res.data.memes)
-            );
+            .get<ServerResponse<Category[]>>(this.allUrl)
+            .pipe(map(res => res.data.categories));
     }
 }

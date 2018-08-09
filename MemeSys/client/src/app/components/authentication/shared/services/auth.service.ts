@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { LoginInput } from '../models/login.input-model';
 import { RegisterInput } from '../models/register.input-model';
 import { ServerResponse } from '../../../core/models/server-response.model';
+import { ServerToken } from '../../../core/models/server-token.model';
 
 const root = '/api/';
 
@@ -29,7 +30,7 @@ export class AuthService {
 
     login(payload: LoginInput): void {
         this.login$ = this.http
-            .post<ServerResponse>(this.loginUrl, payload)
+            .post<ServerResponse<ServerToken>>(this.loginUrl, payload)
             .pipe(
                 catchError(this.handleError),
                 map(res => res.data),
@@ -44,7 +45,7 @@ export class AuthService {
 
     register(payload: RegisterInput): void {
         this.register$ = this.http
-            .post<ServerResponse>(this.registerUrl, payload)
+            .post<ServerResponse<ServerToken>>(this.registerUrl, payload)
             .pipe(
                 catchError(this.handleError),
                 map(res => res.data),

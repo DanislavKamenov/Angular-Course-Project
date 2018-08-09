@@ -1,4 +1,4 @@
-import { MemesRoutingModule } from '../memes/memes-routing.module';
+import { MemesRoutingModule } from './memes-routing.module';
 
 describe('MemesRoutingModule', () => {
   let memesRoutingModule: MemesRoutingModule;

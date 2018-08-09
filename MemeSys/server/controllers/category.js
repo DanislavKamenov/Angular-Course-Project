@@ -13,6 +13,6 @@ function getCategories(req, res) {
 }
 
 router
-    .get('/all', getCategories);
+    .get('/', getCategories);
 
 module.exports = router;

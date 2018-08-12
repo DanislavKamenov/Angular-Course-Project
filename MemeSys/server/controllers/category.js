@@ -7,9 +7,7 @@ function getCategories(req, res) {
         .then(categories => {
             res.success({ categories });
         })
-        .catch(err => {
-            res.error(err);
-        });
+        .catch(res.error);
 }
 
 router

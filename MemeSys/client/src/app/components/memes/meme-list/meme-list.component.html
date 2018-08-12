@@ -1,6 +1,11 @@
-<app-group-list></app-group-list>
-<div class="meme-page">
-    <div class="meme-container" *ngFor="let m of memes$ | async">
-        <app-meme [meme]="m"></app-meme>
-    </div>
+<div class="meme-container" *ngFor="let m of memes$ | async">
+    <app-meme [meme]="m"></app-meme>
 </div>
+
+<ng-template #loading>
+    <div class="progress">
+      <div [ngStyle]="{'background': red}">
+       LOADING
+       </div>
+    </div>
+  </ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ValidationService } from '../shared/services/validation.service';
 import { AbstractControl } from '@angular/forms';
 
@@ -7,17 +7,10 @@ import { AbstractControl } from '@angular/forms';
     templateUrl: './register-password-info.component.html',
     styleUrls: ['./register-password-info.component.css']
 })
-export class RegisterPasswordInfoComponent implements OnInit {
+export class RegisterPasswordInfoComponent {
     @Input() password: AbstractControl;
 
     constructor(private validationService: ValidationService) { }
-
-    ngOnInit() {
-    }
-
-    colorWhite() {
-        
-    }
 
     isEmpty(c: AbstractControl): boolean {
         return this.validationService.isEmpty(c);

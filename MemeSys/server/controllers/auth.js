@@ -75,12 +75,12 @@ router.post('/signup', (req, res, next) => {
     console.log(req.body);
     const validationResult = validateSignupForm(req.body);
     if (!validationResult.success) {
-        return res.error(401, validationResult.message, validationResult.errors);
+        return res.error(validationResult.message, 401, validationResult.errors);
     }
 
     return passport.authenticate('local-signup', (err, token) => {
         if (err) {
-            return res.error(401, err);
+            return res.error(err, 401);
         }
 
         const message = 'You have successfully signed up! Now you should be able to log in.';
@@ -91,17 +91,17 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', (req, res, next) => {
     const validationResult = validateLoginForm(req.body);
     if (!validationResult.success) {
-        return res.error(401, validationResult.message, validationResult.errors);
+        return res.error(validationResult.message, 401, validationResult.errors);
     }
 
     return passport.authenticate('local-login', (err, token) => {
         if (err) {
             if (err.name === 'IncorrectCredentialsError') {
-                return res.error(401, err);
+                return res.error(err, 401);
             }
 
             const message = 'Could not process the form.';
-            return res.error(401, message);
+            return res.error(message, 401);
         }
 
         const message = 'You have successfully logged in!';

@@ -10,7 +10,7 @@ import { AuthService } from '../../authentication/shared/services/auth.service';
     styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-
+    isLoggedIn: boolean = false;
     constructor(
         private http: HttpClient,
         private authService: AuthService,
@@ -27,6 +27,6 @@ export class NavigationComponent {
     }
 
     get isUserLoggedIn(): boolean {
-        return this.userService.isLoggedIn();
+        return this.isLoggedIn = this.userService.isLoggedIn();
     }
 }

@@ -7,6 +7,10 @@ li {
     max-width: 40%;
 }
 
+a {
+    cursor: pointer;
+}
+
 img {
     max-width: 10%;
 }

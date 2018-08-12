@@ -71,7 +71,6 @@ export class AuthService {
     private handleError = (res: HttpErrorResponse) => {
         //Had to bind 'this'.
         console.log(res);
-        this.toastr.error(`${res.error.message || res.error}`, `${res.statusText}:`);
         return throwError('Authentication Failed.');
     }
 }

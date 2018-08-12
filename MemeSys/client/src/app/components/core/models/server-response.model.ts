@@ -1,7 +1,7 @@
 export interface ServerResponse<T> {
     success: boolean;
     statusCode: number;
-    message: string;
+    message?: string;
     data?: {[key: string]: T};
-    errors?: { [key: string]: T };
+    errors?: { [key: string]: string};
 }

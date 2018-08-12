@@ -9,9 +9,7 @@ import { ServerToken } from '../models/server-token.model';
 })
 export class UserService {
 
-    constructor(private jwtHelper: JwtHelperService) {
-        console.log('new userService instance');        
-    }    
+    constructor(private jwtHelper: JwtHelperService) { }    
 
     get user(): User | null {
         return this.token ? this.token.user || null : null;

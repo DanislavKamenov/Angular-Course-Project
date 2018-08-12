@@ -5,7 +5,7 @@ export interface Meme {
     creator: User;
     title: string;
     image: string;
-    upvote: number;
+    votes: number;
     upVoted: string[];
     downVoted: string[];
     createdOn: Date;

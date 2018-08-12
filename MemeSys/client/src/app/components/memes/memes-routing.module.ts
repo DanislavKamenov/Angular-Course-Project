@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MemeComponent } from './meme/meme.component';
-import { MemeListComponent } from './meme-list/meme-list.component';
+import { MemePageComponent } from './meme-page/meme-page.component';
 
 const memeRoutes: Routes = [
-    { path: 'meme', component: MemeListComponent }
+    { path: 'meme', component: MemePageComponent }
 ]
 
 @NgModule({

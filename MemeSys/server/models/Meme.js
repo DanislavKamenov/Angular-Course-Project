@@ -17,6 +17,10 @@ const memeSchema = mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Category'
     },
+    votes: {
+        type: mongoose.SchemaTypes.Number,
+        default: 0
+    },
     upVoted: [{
         type: mongoose.SchemaTypes.String,
         default: []
@@ -31,8 +35,8 @@ const memeSchema = mongoose.Schema({
     }
 });
 
-memeSchema.virtual('votes').get(function() {
-    return this.upVoted.length - this.downVoted.length;
+memeSchema.pre('save', function() {
+    this.votes = this.upVoted.length - this.downVoted.length;
 });
 
 const Meme = mongoose.model('Meme', memeSchema);

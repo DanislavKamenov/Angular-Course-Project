@@ -14,10 +14,10 @@ function httpSuccessResponse(data, message) {
     });
 }
 
-function httpErrorResponse(statusCode, error, errors) {
+function httpErrorResponse(error, statusCode, errors) {
     return this.status(statusCode).json({
         success: false,
-        statusCode,
+        statusCode: statusCode || 404,
         message: error.message || error,
         errors
     });

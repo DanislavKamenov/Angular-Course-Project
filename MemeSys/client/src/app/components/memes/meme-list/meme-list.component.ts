@@ -19,8 +19,9 @@ export class MemeListComponent implements OnInit, OnDestroy {
         private dataService: SharedDataService) { }
 
     ngOnInit(): void {
-        this.memes$ = this.memeService.getAllMemes();
-        this.memeChanges$ = this.dataService.memeSource$.subscribe(memes$ => this.memes$ = memes$);
+        //TODO: look for improvements to page switc
+        // this.memes$ = this.memeService.getAllMemes();
+        this.memeChanges$ = this.dataService.memeSource.subscribe(memes$ => this.memes$ = memes$);
     }
 
     ngOnDestroy(): void {

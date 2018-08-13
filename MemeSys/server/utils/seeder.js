@@ -6,6 +6,7 @@ const memeService = require('../services/memeService');
 
 const categories = require('./mock-data/categories');
 const memes = require('./mock-data/memes');
+const comments = require('./mock-data/comments');
 
 function seedCategoriesWithUser(userId) {
     categories.map(c => c.creator = userId);
@@ -48,11 +49,26 @@ function seedMemesWithUser() {
 
                     memeService
                         .create(memeArr)
-                        .then(() => console.log('memes seeded!'))
+                        .then(() => {
+                            console.log('memes seeded!');
+                            seedCommentsWithUser('Образование', admin._id);
+                            seedCommentsWithUser('Tasseracts', admin._id);
+                        })
                         .catch(console.log);
                 }).catch(console.log);
         })
         .catch(console.log);
+}
+
+function seedCommentsWithUser(memeTitle, userId) {
+    comments[memeTitle].forEach(c => {
+        c.creator = userId;
+        commentService
+            .create(c, memeTitle)
+            .then(comments => {
+                console.log(memeTitle + ' comments seeded!');
+            }).catch(console.log);
+    });
 }
 
 module.exports = {

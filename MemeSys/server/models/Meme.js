@@ -17,6 +17,11 @@ const memeSchema = mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'Category'
     },
+    comments: [{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Comment',
+        default: []
+    }],
     votes: {
         type: mongoose.SchemaTypes.Number,
         default: 0

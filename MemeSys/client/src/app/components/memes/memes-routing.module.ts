@@ -3,9 +3,17 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MemePageComponent } from './meme-page/meme-page.component';
+import { MemeDetailsComponent } from './meme-details/meme-details.component';
+import { MemeListComponent } from './meme-list/meme-list.component';
 
 const memeRoutes: Routes = [
-    { path: 'meme', component: MemePageComponent }
+    {
+        path: '', component: MemePageComponent, children: [
+            { path: 'meme/:id', component: MemeDetailsComponent },
+            { path: '', component: MemeListComponent }
+        ]
+    },
+
 ]
 
 @NgModule({
@@ -13,6 +21,6 @@ const memeRoutes: Routes = [
         CommonModule,
         RouterModule.forChild(memeRoutes)
     ],
-    declarations: []
+    exports: [RouterModule]
 })
 export class MemesRoutingModule { }

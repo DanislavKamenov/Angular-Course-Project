@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ServerResponse } from '../../../core/models/server-response.model';
+import { ServerResponse } from '../../../shared/models/server-response.model';
 import { Category } from '../../shared/models/category.model';
 
 const root = '/api/';

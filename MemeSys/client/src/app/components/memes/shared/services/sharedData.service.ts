@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
-import { Subject, Observable } from "rxjs";
+import { Injectable } from '@angular/core';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
-import { MemeService } from "./meme.service";
-import { Meme } from "../models/meme.model";
+import { Meme } from '../models/meme.model';
+import { MemeService } from './meme.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SharedDataService {
-    memeSource$ = new Subject<Observable<Meme[]>>();
+    memeSource = new BehaviorSubject<Observable<Meme[]>>(this.memeService.getAllMemes());
 
     constructor(private memeService: MemeService) { }
 
-    changeCategory(catId) {
-        return this.memeSource$.next(this.memeService.getMemesByCategory(catId));
-    }
+    changeCategory(catId: string): void {
+        return this.memeSource.next(this.memeService.getMemesByCategory(catId));
+    }    
 }

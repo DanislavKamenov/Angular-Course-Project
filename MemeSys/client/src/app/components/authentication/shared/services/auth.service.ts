@@ -7,8 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 
 import { LoginInput } from '../models/login.input-model';
 import { RegisterInput } from '../models/register.input-model';
-import { ServerResponse } from '../../../core/models/server-response.model';
-import { ServerToken } from '../../../core/models/server-token.model';
+import { ServerResponse } from '../../../shared/models/server-response.model';
+import { ServerToken } from '../../../shared/models/server-token.model';
 
 const root = '/api/';
 

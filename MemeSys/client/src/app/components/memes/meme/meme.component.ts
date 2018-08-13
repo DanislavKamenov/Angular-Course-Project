@@ -3,13 +3,13 @@ import { Subscription } from 'rxjs';
 
 import { Meme } from '../shared/models/meme.model';
 import { MemeService } from '../shared/services/meme.service';
-import { UserService } from '../../core/services/user.service';
-import { ModalService } from '../../core/services/modal.service';
+import { UserService } from '../../shared/services/user.service';
+import { ModalService } from '../../shared/services/modal.service';
 
 @Component({
     selector: 'app-meme',
     templateUrl: './meme.component.html',
-    styleUrls: ['./meme.component.css']
+    styleUrls: ['./meme.component.css'],
 })
 export class MemeComponent implements OnDestroy {
     @Input() meme: Meme;
@@ -30,6 +30,7 @@ export class MemeComponent implements OnDestroy {
         if (this.userService.isLoggedIn()) {
             this.vote(memeId, type);
         } else {
+            console.log(this.modalService);
             const title = 'WARNING';
             const message = 'You must login in in order to vote.';
             const redirectUrl = '/auth/login';
@@ -45,10 +46,19 @@ export class MemeComponent implements OnDestroy {
     }
 
     hasUserUpVoted(meme: Meme): boolean {
-        return this.memeService.hasUserUpVoted(meme);
+        //TODO: Improve this check
+        if (this.userService.isLoggedIn()) {
+            return this.memeService.hasUserUpVoted(meme);
+        } else {
+            false;
+        }
     }
 
     hasUserDownVoted(meme: Meme): boolean {
-        return this.memeService.hasUserDownVoted(meme);
+        if (this.userService.isLoggedIn()) {
+            return this.memeService.hasUserDownVoted(meme);
+        } else {
+            false;
+        }
     }
 }

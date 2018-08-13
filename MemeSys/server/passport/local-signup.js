@@ -30,7 +30,7 @@ module.exports = new PassportLocalStrategy({
                             .create(user)
                             .then((savedUser) => {
                                 const userToSend = {
-                                    id: savedUser._id,
+                                    _id: savedUser._id,
                                     email: savedUser.email,
                                     name: savedUser.name
                                 };

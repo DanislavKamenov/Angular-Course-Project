@@ -15,7 +15,7 @@ function httpSuccessResponse(data, message) {
 }
 
 function httpErrorResponse(error, statusCode, errors) {
-    return this.status(statusCode).json({
+    return this.status(statusCode || 404).json({
         success: false,
         statusCode: statusCode || 404,
         message: error.message || error,

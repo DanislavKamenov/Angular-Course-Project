@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
-import { ServerResponse } from '../../../core/models/server-response.model';
+import { ServerResponse } from '../../../shared/models/server-response.model';
 import { Category } from '../models/category.model';
 import { MemeService } from './meme.service';
 

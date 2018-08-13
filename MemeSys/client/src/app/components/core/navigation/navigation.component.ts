@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { UserService } from '../services/user.service';
+import { UserService } from '../../shared/services/user.service';
 import { AuthService } from '../../authentication/shared/services/auth.service';
 
 @Component({

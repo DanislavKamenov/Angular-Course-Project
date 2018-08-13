@@ -25,11 +25,11 @@ export class LoginFormComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this.authService.clearLoginSubscription();
-    }
-
-    get f() { return this.loginForm.controls; }
+    }    
 
     onSubmit(): void {
         this.authService.login(this.loginForm.value);
     }
+
+    get f() { return this.loginForm.controls; }
 }

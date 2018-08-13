@@ -4,8 +4,8 @@ import { Observable, of } from 'rxjs';
 import { map, catchError, share } from 'rxjs/operators';
 
 import { Meme } from '../models/meme.model';
-import { ServerResponse } from '../../../core/models/server-response.model';
-import { UserService } from '../../../core/services/user.service';
+import { ServerResponse } from '../../../shared/models/server-response.model';
+import { UserService } from '../../../shared/services/user.service';
 
 const root: string = '/api/';
 
@@ -13,9 +13,8 @@ const root: string = '/api/';
     providedIn: 'root'
 })
 export class MemeService {
-    private allUrl: string = root + 'meme/';
-    private voteUrl: string = this.allUrl + 'vote';
-    testErrors = [];
+    private allMemesUrl: string = root + 'meme/';
+    private voteUrl: string = this.allMemesUrl + 'vote';
 
     constructor(
         private http: HttpClient,
@@ -23,7 +22,7 @@ export class MemeService {
 
     getAllMemes(): Observable<Meme[]> {
         return this.http
-            .get<ServerResponse<Meme[]>>(this.allUrl)
+            .get<ServerResponse<Meme[]>>(this.allMemesUrl)
             .pipe(
                 catchError(this.handleError<Meme[]>([])),
                 map(res => res.data.memes),
@@ -35,15 +34,25 @@ export class MemeService {
         const query = `?filter[category]=${catId}`;
 
         return this.http
-            .get<ServerResponse<Meme[]>>(this.allUrl + query)
+            .get<ServerResponse<Meme[]>>(this.allMemesUrl + query)
             .pipe(
                 catchError(this.handleError<Meme[]>([])),
                 map(res => res.data.memes)
             );
     }
 
+    getOneMemeById(memeId: string): Observable<Meme> {
+        const oneMemeUrl = this.allMemesUrl + memeId;
+        return this.http
+            .get<ServerResponse<Meme>>(oneMemeUrl)
+            .pipe(
+                catchError(this.handleError<Meme>()),
+                map(res => res.data.meme)
+            );
+        }
+
     vote(memeId: string, type: string): Observable<Meme> {
-        const userId = this.userService.user.id;
+        const userId = this.userService.user._id;
         console.log(userId);
 
         return this.http
@@ -52,15 +61,15 @@ export class MemeService {
                 catchError(this.handleError<Meme>()),
                 map(res => res.data.meme)
             );
-    }
+    }    
 
     hasUserUpVoted(meme: Meme): boolean {
-        const userId = this.userService.user.id;
+        const userId = this.userService.user._id;
         return meme.upVoted.includes(userId);
     }
 
     hasUserDownVoted(meme: Meme): boolean {
-        const userId = this.userService.user.id;
+        const userId = this.userService.user._id;
         return meme.downVoted.includes(userId);
     }
 

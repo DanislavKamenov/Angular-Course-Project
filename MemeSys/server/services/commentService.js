@@ -8,14 +8,14 @@ module.exports = {
     create: (newComment, memeId) =>
         new Promise((resolve, reject) => {
             Meme.findOne({ _id: memeId })
-                .then(Meme => {
+                .then(meme => {
                     const comment = newComment;
-                    comment.Meme = Meme._id;
+                    comment.meme = meme._id;
                     commentCrud
                         .create(comment)
                         .then(createdComment => {
-                            Meme.comments.push(createdComment);
-                            Meme.save();
+                            meme.comments.push(createdComment._id);
+                            meme.save();
                             resolve(createdComment);
                         })
                         .catch(reject);

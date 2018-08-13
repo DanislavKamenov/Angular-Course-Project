@@ -2,34 +2,23 @@ const router = require('express').Router();
 const commentService = require('../services/commentService');
 
 function createComment(req, res) {
-    const postId = req.params.postId;
-    const newComment = req.body;
+    const { creator, content, query } = req.body;
 
     commentService
-        .create(newComment, postId)
+        .create({ creator, content }, query.id)
         .then(comment => {
             commentService
                 .getOne({ _id: comment._id }, null, 'creator')
                 .then(populatedComment => {
-                    res.status(200).json({
-                        success: true,
-                        message: 'Comment created.',
-                        comment: populatedComment
-                    });
+                    res.success({ comment: populatedComment }, 'Comment created successfully!');
                 })
                 .catch(err => {
-                    res.status(200).json({
-                        success: false,
-                        message: err.message || err
-                    });
+                    res.error(err)
                     console.log(err);
                 });
         })
         .catch(err => {
-            res.status(200).json({
-                success: false,
-                message: err.message || err
-            });
+            res.error(err)
             console.log(err);
         });
 }
@@ -38,7 +27,7 @@ function editComment(req, res) {
     const commentId = req.params.commentId;
     const content = req.body.content;
     commentService
-        .update({_id: commentId}, {content}, {new: true})
+        .update({ _id: commentId }, { content }, { new: true })
         .then(newComment => {
             res.status(200).json({
                 success: true,
@@ -47,10 +36,7 @@ function editComment(req, res) {
             });
         })
         .catch(err => {
-            res.status(200).json({
-                success: false,
-                message: err.message || err
-            });
+            res.error(err)
             console.log(err);
         });
 }
@@ -60,24 +46,17 @@ function deleteComment(req, res) {
 
     commentService
         .removeOne({ _id: commentId })
-        .then(oldComment => {            
-            res.status(200).json({
-                success: true,
-                message: 'Comment deleted.',
-                oldComment
-            });
+        .then(oldComment => {
+            res.success({ comment: oldComment }, 'Comment deleted.');
         })
         .catch(err => {
-            res.status(200).json({
-                success: false,
-                message: err.message || err
-            });
+            res.error(err)
             console.log(err);
         });
 }
 
 router
-    .post('/post/:postId', createComment)
+    .post('', createComment)
     .post('/:commentId/edit', editComment)
     .delete('/:commentId', deleteComment);
 

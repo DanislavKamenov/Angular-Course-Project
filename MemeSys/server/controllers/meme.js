@@ -1,12 +1,43 @@
 const router = require('express').Router();
 const memeService = require('../services/memeService');
 
-function getAllMemes(req, res) {
+function getMemes(req, res) {
     const criteria = req.query.filter || {};
 
     memeService
-        .get(criteria)
+        .get(criteria, null, 'category')
         .then(memes => res.success({ memes }))
+        .catch(res.error);
+}
+
+function getOneMemeById(req, res) {
+    const id = req.params.id;
+    const populate = [{
+        path: 'comments',
+        model: 'Comment',
+    }, {
+        path: 'comments',
+        populate: {
+            path: 'creator',
+            model: 'User',
+            select: {
+                _id: '1',
+                name: '1',
+                avatar: '1',
+                roleNames: '1',
+                isAdmin: '1',
+                isSilenced: '1',
+                isBanned: '1'
+            }
+        }
+    }];
+
+    memeService
+        .getOne({ _id: id }, null, populate)
+        .then(meme => {
+            meme.comments.sort((a, b) => b.createdOn - a.createdOn);
+            res.success({ meme });
+        })
         .catch(res.error);
 }
 
@@ -34,11 +65,12 @@ function voteMeme(req, res) {
             meme.save();
             res.success({ meme });
         })
-        .catch(res.error);
+        .catch(err => res.error(err));
 }
 
 router
-    .get('', getAllMemes)
+    .get('', getMemes)
+    .get('/:id', getOneMemeById)
     .post('/vote', voteMeme);
 
 module.exports = router;

@@ -49,10 +49,12 @@ function seedMemesWithUser() {
 
                     memeService
                         .create(memeArr)
-                        .then(() => {
+                        .then((memes) => {
                             console.log('memes seeded!');
-                            seedCommentsWithUser('Образование', admin._id);
-                            seedCommentsWithUser('Tasseracts', admin._id);
+                            const educationEntity = memes.filter(m => m.title === 'Образование')[0];
+                            const tasseractsEntity = memes.filter(m => m.title === 'Tasseracts')[0];
+                            seedCommentsWithUser(educationEntity, admin._id);
+                            seedCommentsWithUser(tasseractsEntity, admin._id);
                         })
                         .catch(console.log);
                 }).catch(console.log);
@@ -60,13 +62,13 @@ function seedMemesWithUser() {
         .catch(console.log);
 }
 
-function seedCommentsWithUser(memeTitle, userId) {
-    comments[memeTitle].forEach(c => {
+function seedCommentsWithUser(meme, userId) {
+    comments[meme.title].forEach(c => {
         c.creator = userId;
         commentService
-            .create(c, memeTitle)
+            .create(c, meme._id)
             .then(comments => {
-                console.log(memeTitle + ' comments seeded!');
+                console.log(meme.title + ' comments seeded!');
             }).catch(console.log);
     });
 }

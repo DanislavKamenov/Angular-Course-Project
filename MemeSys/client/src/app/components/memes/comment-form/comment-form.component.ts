@@ -2,7 +2,6 @@ import { Component, OnDestroy, Input, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
-import { SharedDataService } from '../shared/services/sharedData.service';
 import { Subscription } from '../../../../../node_modules/rxjs';
 import { CommentService } from '../../shared/services/comment.service';
 

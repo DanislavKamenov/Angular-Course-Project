@@ -12,6 +12,7 @@ import { Category } from '../shared/models/category.model';
 })
 export class CategoryListComponent implements OnInit {
     categories$: Observable<Category[]>;
+    currentCategory$: Observable<string>;
 
     constructor(
         private catService: CategoryService,
@@ -19,6 +20,7 @@ export class CategoryListComponent implements OnInit {
 
     ngOnInit(): void {
         this.categories$ = this.catService.getAllCategories();
+        this.currentCategory$ = this.dataService.memeSource.asObservable();
     }
 
     onClick(catId: string): void {

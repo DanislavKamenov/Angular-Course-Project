@@ -18,7 +18,6 @@ export class NavigationComponent {
 
     logout(): void {
         this.authService.logout();
-
         console.log('cleared');
     }
 
@@ -26,7 +25,7 @@ export class NavigationComponent {
         this.http.get('api/meme').subscribe(console.log);
     }
 
-    get isUserLoggedIn(): boolean {
+    isUserLoggedIn(): boolean {
         return this.isLoggedIn = this.userService.isLoggedIn();
     }
 }

@@ -11,13 +11,13 @@ export class UserService {
 
     constructor(private jwtHelper: JwtHelperService) { }    
 
-    get user(): User | null {
-        return this.token ? this.token.user || null : null;
+    isLoggedIn(): boolean {
+        return !!(this.rawToken && this.user);
     }
 
-    isLoggedIn(): boolean {
-        return !!(this.rawToken && this.user && !this.jwtHelper.isTokenExpired(this.rawToken));
-    }
+    get user(): User | null {
+        return this.token ? this.token.user || null : null;
+    }   
 
     private get rawToken(): string | null {
         return localStorage.getItem('token');
@@ -25,7 +25,12 @@ export class UserService {
 
     private get token(): ServerToken | null {
         try {
-            return this.jwtHelper.decodeToken(this.rawToken);
+            const token = this.rawToken;
+            if (this.jwtHelper.isTokenExpired(this.rawToken)) {
+                sessionStorage.clear();
+                return null;
+            }
+            return this.jwtHelper.decodeToken(token);
         }
         catch {
             return null;

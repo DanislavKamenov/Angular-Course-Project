@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 import { Meme } from '../shared/models/meme.model';
@@ -12,7 +12,8 @@ import { CommentService } from '../../shared/services/comment.service';
     styleUrls: ['./meme-details.component.css']
 })
 export class MemeDetailsComponent implements OnInit {
-    meme$: Observable<Meme>;
+    meme: Meme;
+    memeSub: Subscription;
     commentSub: Subscription;
     isFormHidden: boolean = true;
 
@@ -22,14 +23,18 @@ export class MemeDetailsComponent implements OnInit {
         private commentService: CommentService) { }
 
     ngOnInit(): void {
+        
         const memeId = this.route.snapshot.paramMap.get('id');
-
-        this.meme$ = this.memeService.getOneMemeById(memeId);
+        this.memeSub = this.memeService.getOneMemeById(memeId).subscribe(meme => this.meme = meme);
         this.commentSub = this.commentService.commentStateSource
-            .subscribe(() => this.meme$ = this.memeService.getOneMemeById(memeId));
+            .subscribe(() => {
+                this.memeSub.unsubscribe();
+                this.memeSub = this.memeService.getOneMemeById(memeId).subscribe(meme => this.meme = meme);
+            });
     }
 
     ngOnDestroy(): void {
+        this.memeSub.unsubscribe();
         this.commentSub.unsubscribe();
     }
 

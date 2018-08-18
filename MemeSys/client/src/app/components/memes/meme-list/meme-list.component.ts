@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { MemeService } from '../shared/services/meme.service';
 import { SharedDataService } from '../shared/services/sharedData.service';
@@ -11,20 +11,44 @@ import { Meme } from '../shared/models/meme.model';
     styleUrls: ['./meme-list.component.css']
 })
 export class MemeListComponent implements OnInit, OnDestroy {
-    memes$: Observable<Meme[]>;
-    memeChanges$: Subscription;
+    private _category: string;
+    set category(id: string) {
+        if (this.memesSub) {
+            this.memesSub.unsubscribe();
+        }
+
+        this.skipCount = 0;
+        this.memesSub = this.memeSerivce.getMemesByCriteria(id, this.skipCount, this.limitCount)
+            .subscribe(memes => this.memes = memes);
+        this._category = id;
+    };
+    get category() {
+        return this._category;
+    }
+    memes: Meme[];
+    skipCount: number = 0;
+    limitCount: number = 3;
+    memesSub: Subscription;
+    memeChangesSub: Subscription;
 
     constructor(
-        private memeService: MemeService,
+        private memeSerivce: MemeService,
         private dataService: SharedDataService) { }
 
     ngOnInit(): void {
-        //TODO: look for improvements to page switc
-        // this.memes$ = this.memeService.getAllMemes();
-        this.memeChanges$ = this.dataService.memeSource.subscribe(memes$ => this.memes$ = memes$);
+        this.memeChangesSub = this.dataService.memeSource.subscribe(category => this.category = category);
     }
 
     ngOnDestroy(): void {
-        this.memeChanges$.unsubscribe();
+        this.memesSub.unsubscribe();
+        this.memeChangesSub.unsubscribe();
+    }
+
+    onScrollDown(): void {
+        this.skipCount++;
+        this.memesSub.unsubscribe();
+
+        this.memesSub = this.memeSerivce.getMemesByCriteria(this.category, this.skipCount, this.limitCount)
+        .subscribe(memes => this.memes = [...this.memes, ...memes]);
     }
 }

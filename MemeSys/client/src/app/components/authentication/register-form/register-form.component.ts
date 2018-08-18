@@ -21,6 +21,7 @@ export class RegisterFormComponent implements OnDestroy {
             name: ['', [
                 Validators.required,
                 Validators.pattern('[a-zA-Zа-яА-Я]+')]],
+                avatar: ['', Validators.required],
             password: ['', [
                 Validators.required,
                 CustomValidators.customPattern(/^.{3,16}$/, 'range'),

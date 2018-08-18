@@ -51,26 +51,26 @@ module.exports = {
                 .then(resolve)
                 .catch(reject);
         }),
-    removeMany: (query) =>
-        new Promise((resolve, reject) =>
-            commentCrud
-                .removeMany(query)
-                .then(resolve)
-                .catch(reject)
-        ),
-    removeOne: (query, options) => 
+    removeOne: (query, options) =>
         new Promise((resolve, reject) =>
             Meme
-                .findOne({comments: query._id})                
+                .findOne({ comments: query._id })
                 .then(Meme => {
                     Meme.comments.remove(query._id);
-                                        
+
                     Meme.save();
                     commentCrud
                         .removeOne(query, options)
                         .then(resolve)
                         .catch(reject);
                 })
+                .catch(reject)
+        ),
+    removeMany: (query) =>
+        new Promise((resolve, reject) =>
+            commentCrud
+                .removeMany(query)
+                .then(resolve)
                 .catch(reject)
         )
 };

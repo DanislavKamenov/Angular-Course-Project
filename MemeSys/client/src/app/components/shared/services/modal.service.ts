@@ -17,4 +17,12 @@ export class ModalService {
             activeModal.componentInstance.redirectUrl = redirectUrl;
             activeModal.componentInstance.buttonText = 'Login';
     }
+
+    createLoginRedirectModal(
+        message: string = 'You must login in in order to access this page.', 
+        title: string = 'WARNING') {
+            const redirectUrl = '/auth/login';
+
+            this.createRedirectModal(title, message, redirectUrl);
+    }
 }

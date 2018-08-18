@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ModalComponent } from './modal/modal.component';
 import { CommentComponent } from './comment/comment.component';
+import { LetDirective } from './directives/let.directive';
 
 
 @NgModule({
@@ -13,8 +14,8 @@ import { CommentComponent } from './comment/comment.component';
         RouterModule,
         NgbModule.forRoot()
     ],
-    declarations: [ModalComponent, CommentComponent],
-    exports: [CommentComponent],
+    declarations: [ModalComponent, CommentComponent, LetDirective],
+    exports: [CommentComponent, LetDirective],
     entryComponents: [ModalComponent]
 })
 export class SharedModule { }

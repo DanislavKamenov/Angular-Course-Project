@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 import { SharedModule } from '../shared/shared.module';
 import { MemesRoutingModule } from './memes-routing.module';
@@ -16,6 +17,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
     imports: [
         CommonModule,
         ReactiveFormsModule,
+        InfiniteScrollModule,
         SharedModule,
         MemesRoutingModule
     ],

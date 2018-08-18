@@ -18,12 +18,13 @@ export class CommentComponent {
         private commentService: CommentService) { }
 
     calcTime(dateToIsoFormat: Date): string {
-        return this.helperService.calcTime(dateToIsoFormat)
+        return this.helperService.calcTime(dateToIsoFormat);
     }
 
     canDelete(): boolean {
         const user = this.userService.user;
-        return user.isAdmin || user._id === this.comment.creator._id;
+        console.log(user);
+        return user && (user.isAdmin || user._id === this.comment.creator._id);
     }
 
     onDeleteClick() {

@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 import { Meme } from '../shared/models/meme.model';
 import { MemeService } from '../shared/services/meme.service';
@@ -13,34 +14,40 @@ import { ModalService } from '../../shared/services/modal.service';
 })
 export class MemeComponent implements OnDestroy {
     @Input() meme: Meme;
-    voteSub$: Subscription;
+    voteSub: Subscription;
+    deleteSub: Subscription;
 
     constructor(
         private memeService: MemeService,
         private userService: UserService,
-        private modalService: ModalService) { }
+        private modalService: ModalService,
+        private router: Router) { }
 
-    ngOnDestroy() {
-        if (this.voteSub$) {
-            this.voteSub$.unsubscribe();
+    ngOnDestroy(): void {
+        if (this.voteSub) {
+            this.voteSub.unsubscribe();
         }
+
+        if (this.deleteSub) {
+            this.deleteSub.unsubscribe();
+        }
+    }
+
+    onDeleteClick(memeId: string):void {
+        this.deleteSub = this.memeService.deleteMeme(memeId).subscribe(() => this.router.navigate(['/memes']));
     }
 
     voteClickHandler(memeId: string, type: string): void {
         if (this.userService.isLoggedIn()) {
             this.vote(memeId, type);
         } else {
-            console.log(this.modalService);
-            const title = 'WARNING';
             const message = 'You must login in in order to vote.';
-            const redirectUrl = '/auth/login';
-            this.modalService.createRedirectModal(title, message, redirectUrl);
+            this.modalService.createLoginRedirectModal(message);
         }
     }    
 
     vote(memeId: string, type: string): void {
-        this.voteSub$ = this.memeService.vote(memeId, type).subscribe(meme => {
-            console.log(meme.votes);
+        this.voteSub = this.memeService.vote(memeId, type).subscribe(meme => {
             this.meme = meme;
         });
     }
@@ -49,9 +56,9 @@ export class MemeComponent implements OnDestroy {
         //TODO: Improve this check
         if (this.userService.isLoggedIn()) {
             return this.memeService.hasUserUpVoted(meme);
-        } else {
-            false;
         }
+
+        return false;
     }
 
     hasUserDownVoted(meme: Meme): boolean {
@@ -60,5 +67,10 @@ export class MemeComponent implements OnDestroy {
         } else {
             false;
         }
+    }
+
+    isUserAdmin(): boolean {
+        const user = this.userService.user;
+        return user && user.isAdmin;
     }
 }

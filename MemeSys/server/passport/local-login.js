@@ -37,7 +37,9 @@ module.exports = new PassportLocalStrategy({
             const userToSend = {
                 _id: savedUser._id,
                 email: savedUser.email,
-                name: savedUser.name               
+                name: savedUser.name,
+                isAdmin: savedUser.isAdmin,
+                roleNames: savedUser.roleNames
             };
             const token = generateWebToken(userToSend);
           

@@ -1,14 +1,13 @@
-<div class="meme-details-container" *ngIf="meme$ | async as meme">
+<div class="meme-details-container" *ngIf="meme">
     <app-meme [meme]="meme"></app-meme>
     <div *ngIf="meme.comments.length > 0; else commentGreeting">
         <app-comment *ngFor="let comment of meme.comments" [comment]="comment"></app-comment>
     </div>
-</div>
-
-<div class="controls">
-    <button class="btn text-center" [ngClass]="{
-        'btn-primary': isFormHidden,
-        'btn-danger': !isFormHidden}" (click)="showHideCommentForm()">{{isFormHidden ? 'Leave a comment' : 'Close form'}}</button>
+    <div class="controls">
+        <button class="btn text-center" [ngClass]="{
+            'btn-primary': isFormHidden,
+            'btn-danger': !isFormHidden}" (click)="showHideCommentForm()">{{isFormHidden ? 'Leave a comment' : 'Close form'}}</button>
+    </div>
 </div>
 <app-comment-form [hidden]="isFormHidden" [isFormHidden]="isFormHidden"></app-comment-form>
 

@@ -24,6 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "2.2.2",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.5.4",
+    "ngx-infinite-scroll": "6.0.1",
     "ngx-toastr": "8.10.0",
     "rxjs": "^6.0.0",
     "v2": "0.0.3",

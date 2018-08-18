@@ -13,6 +13,7 @@ module.exports = new PassportLocalStrategy({
         email: email.trim(),
         password: password.trim(),        
         name: req.body.name.trim(),
+        avatar: req.body.avatar.trim()
     };
     //TODO: rework this validation.
     userService
@@ -32,7 +33,9 @@ module.exports = new PassportLocalStrategy({
                                 const userToSend = {
                                     _id: savedUser._id,
                                     email: savedUser.email,
-                                    name: savedUser.name
+                                    name: savedUser.name,
+                                    isAdmin: savedUser.isAdmin,
+                                    roleNames: savedUser.roleNames
                                 };
                                 let token = generateWebToken(userToSend);
                                 done(null, token);

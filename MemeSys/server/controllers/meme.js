@@ -3,14 +3,44 @@ const memeService = require('../services/memeService');
 
 function getMemes(req, res) {
     const criteria = req.query.filter || {};
+    const skip = +req.query.skip || null;
+    const limit = +req.query.limit || null;
 
     memeService
-        .get(criteria, null, 'category')
-        .then(memes => res.success({ memes }))
-        .catch(res.error);
+        .get(criteria, { skip: skip * limit, limit: limit }, 'category')
+        .then(memes => {
+            res.success({ memes });
+        })
+        .catch(err => res.error(err));
 }
 
-function getOneMemeById(req, res) {
+function getMemesByUpvotes(req, res) {
+    const sort = +req.params.sort;
+    const skip = +req.params.skip;
+    const limit = +req.params.limit;
+
+    memeService
+        .getAll({ sort: { votes: sort }, skip: skip * limit, limit: limit }, 'category')
+        .then(memes => {
+            res.success({ memes });
+        })
+        .catch(err => res.error(err));
+}
+
+function getFreshMemes(req, res) {
+    const sort = +req.params.sort;
+    const skip = +req.params.skip;
+    const limit = +req.params.limit;
+
+    memeService
+        .getAll({ sort: { createdOn: sort }, skip: skip * limit, limit: limit }, 'category')
+        .then(memes => {
+            res.success({ memes });
+        })
+        .catch(err => res.error(err));
+}
+
+function getMemeById(req, res) {
     const id = req.params.id;
     const populate = [{
         path: 'comments',
@@ -38,7 +68,17 @@ function getOneMemeById(req, res) {
             meme.comments.sort((a, b) => b.createdOn - a.createdOn);
             res.success({ meme });
         })
-        .catch(res.error);
+        .catch(err => res.error(err));
+}
+
+function deleteMemeById(req, res) {
+    const memeId = req.params.id;
+
+    memeService
+        .removeOne(memeId)
+        .then(oldMeme => res.success({ meme: oldMeme }, 'Meme successfully deleted.'))
+        .catch(err => res.error(err));
+
 }
 
 function voteMeme(req, res) {
@@ -70,7 +110,10 @@ function voteMeme(req, res) {
 
 router
     .get('', getMemes)
-    .get('/:id', getOneMemeById)
+    .get('/:id', getMemeById)
+    .get('/vote/:sort/:skip/:limit', getMemesByUpvotes)
+    .get('/fresh/:sort/:skip/:limit', getFreshMemes)
+    .delete('/:id', deleteMemeById)
     .post('/vote', voteMeme);
 
 module.exports = router;

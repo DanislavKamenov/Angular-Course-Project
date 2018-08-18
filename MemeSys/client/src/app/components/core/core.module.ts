@@ -10,6 +10,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 import { SuccessInterceptor } from './interceptors/success.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
         RouterModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        SharedModule,
         ToastrModule.forRoot(),
         JwtModule.forRoot({
             config: {

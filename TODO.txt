@@ -1,1 +1,4 @@
-Implement generic error intercepter
+TODO: 
+Improve comment updaging.
+Improve commentService change emitting.
+Revise behaviour subject implementation.

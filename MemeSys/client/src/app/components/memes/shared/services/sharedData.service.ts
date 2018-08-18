@@ -8,11 +8,11 @@ import { MemeService } from './meme.service';
     providedIn: 'root'
 })
 export class SharedDataService {
-    memeSource = new BehaviorSubject<Observable<Meme[]>>(this.memeService.getAllMemes());
+    memeSource = new BehaviorSubject<string>('hot');
 
-    constructor(private memeService: MemeService) { }
+    constructor() { }
 
     changeCategory(catId: string): void {
-        return this.memeSource.next(this.memeService.getMemesByCategory(catId));
+        return this.memeSource.next(catId);
     }    
 }

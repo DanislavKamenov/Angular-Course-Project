@@ -1,4 +1,5 @@
 const Meme = require('../models/Meme');
+const Comment = require('../models/Comment');
 const crud = require('../infrastructure/crud');
 
 const memeCrud = crud(Meme);
@@ -44,7 +45,12 @@ module.exports = {
         new Promise((resolve, reject) => {
             memeCrud
                 .removeOne(query, options)
-                .then(resolve)
+                .then(meme => {
+                    Comment
+                        .remove({meme: meme._id})
+                        .then(resolve)
+                        .catch(reject);
+                })
                 .catch(reject);
         }),
     removeMany: (query) => 

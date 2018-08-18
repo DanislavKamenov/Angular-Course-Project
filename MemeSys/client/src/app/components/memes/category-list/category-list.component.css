@@ -1,16 +1,22 @@
 .category-container {
     position: absolute;
     left: 20px;
-}
-
-li {
-    max-width: 40%;
+    border: 1px solid black;
+    max-width: 25%;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 a {
     cursor: pointer;
+    text-decoration: none;
+}
+
+li:hover {
+    background: #375a7f;
 }
 
 img {
+    max-height: auto;
     max-width: 10%;
 }

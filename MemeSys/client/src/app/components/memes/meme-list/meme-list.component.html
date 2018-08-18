@@ -1,12 +1,19 @@
-<div class="meme-container" *ngFor="let m of memes$ | async">
-    <h3></h3>
-    <app-meme [meme]="m"></app-meme>
+<div class="meme-list-container"
+    infiniteScroll
+    [infiniteScrollDistance]="1"
+    [infiniteScrollThrottle]="150"
+    [scrollWindow]="true"
+    (scrolled)="onScrollDown()"
+>
+        <div class="meme-container" *ngFor="let m of memes">
+                <app-meme [meme]="m"></app-meme>
+        </div>
 </div>
 
 <ng-template #loading>
     <div class="progress">
-      <div [ngStyle]="{'background': red}">
-       LOADING
-       </div>
+        <div [ngStyle]="{'background': red}">
+            LOADING
+        </div>
     </div>
-  </ng-template>
+</ng-template>

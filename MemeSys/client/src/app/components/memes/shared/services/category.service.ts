@@ -6,7 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ServerResponse } from '../../../shared/models/server-response.model';
 import { Category } from '../models/category.model';
-import { MemeService } from './meme.service';
 
 const root = '/api/';
 
@@ -18,7 +17,6 @@ export class CategoryService {
     
     constructor(
         private http: HttpClient,
-        private memeService: MemeService,
         private toastr: ToastrService) { }
 
     getAllCategories(): Observable<Category[]> {

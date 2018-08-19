@@ -8,10 +8,11 @@ import { MemesRoutingModule } from './memes-routing.module';
 
 import { MemeComponent } from './meme/meme.component';
 import { MemeListComponent } from './meme-list/meme-list.component';
-import { CategoryListComponent } from './category-list/category-list.component';
 import { MemePageComponent } from './meme-page/meme-page.component';
 import { MemeDetailsComponent } from './meme-details/meme-details.component';
-import { CommentFormComponent } from './comment-form/comment-form.component';
+import { CommentCreateComponent } from './comment-create/comment-create.component';
+import { MemeCreateComponent } from './meme-create/meme-create.component';
+import { CategoryModule } from '../category/category.module';
 
 @NgModule({
     imports: [
@@ -19,14 +20,15 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
         ReactiveFormsModule,
         InfiniteScrollModule,
         SharedModule,
+        CategoryModule,
         MemesRoutingModule
     ],
     declarations: [
         MemeComponent,
         MemeListComponent,
-        CategoryListComponent,
         MemePageComponent,
         MemeDetailsComponent,
-        CommentFormComponent]
+        CommentCreateComponent,
+        MemeCreateComponent]
 })
 export class MemesModule { }

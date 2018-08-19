@@ -11,6 +11,8 @@ import { FooterComponent } from './footer/footer.component';
 import { SuccessInterceptor } from './interceptors/success.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { SharedModule } from '../shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserDropdownComponent } from './user-dropdown/user-dropdown.component';
 
 @NgModule({
     imports: [
@@ -18,6 +20,7 @@ import { SharedModule } from '../shared/shared.module';
         RouterModule,
         HttpClientModule,
         BrowserAnimationsModule,
+        NgbModule.forRoot(),
         SharedModule,
         ToastrModule.forRoot(),
         JwtModule.forRoot({
@@ -27,7 +30,7 @@ import { SharedModule } from '../shared/shared.module';
             }
         })
     ],
-    declarations: [NavigationComponent, FooterComponent],
+    declarations: [NavigationComponent, FooterComponent, UserDropdownComponent],
     exports: [NavigationComponent, FooterComponent],
     providers: [
         {

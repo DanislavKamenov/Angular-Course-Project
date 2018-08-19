@@ -12,7 +12,7 @@ import { LetDirective } from './directives/let.directive';
     imports: [        
         CommonModule,
         RouterModule,
-        NgbModule.forRoot()
+        NgbModule
     ],
     declarations: [ModalComponent, CommentComponent, LetDirective],
     exports: [CommentComponent, LetDirective],

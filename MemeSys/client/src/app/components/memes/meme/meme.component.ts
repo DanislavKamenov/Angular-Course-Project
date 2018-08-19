@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { Meme } from '../shared/models/meme.model';
+import { Meme } from '../shared/models/view-models/meme.model';
 import { MemeService } from '../shared/services/meme.service';
 import { UserService } from '../../shared/services/user.service';
 import { ModalService } from '../../shared/services/modal.service';

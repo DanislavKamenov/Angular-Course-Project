@@ -1,6 +1,6 @@
 <div class="navigation-container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">MemeSys</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,20 +15,14 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/memes/">Memes</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
-                    [hidden]="isUserLoggedIn"
-                    routerLink="/auth/login">Login</a>
+                <li class="nav-item" [hidden]="!isUserLoggedIn">
+                    <a class="nav-link" routerLink="/memes/create">Create Meme</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
-                    [hidden]="isUserLoggedIn"
-                    routerLink="/auth/register">Register</a>
+                <li class="nav-item" [hidden]="isUserLoggedIn">
+                    <a class="nav-link" routerLink="/auth/login">Login</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
-                    [hidden]="!isUserLoggedIn"
-                    routerLink="/" (click)="logout()">Logout</a>
+                <li class="nav-item" [hidden]="isUserLoggedIn">
+                    <a class="nav-link" routerLink="/auth/register">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/" (click)="makeAPICall()">API Call</a>
@@ -38,6 +32,7 @@
                 <input class="form-control mr-sm-2" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
+            <app-user-dropdown *ngIf="isUserLoggedIn"></app-user-dropdown>
         </div>
     </nav>
 </div>

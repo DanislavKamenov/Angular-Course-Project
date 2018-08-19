@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Subject } from 'rxjs';
 
-import { Meme } from '../models/meme.model';
-import { MemeService } from './meme.service';
-
 @Injectable({
     providedIn: 'root'
 })

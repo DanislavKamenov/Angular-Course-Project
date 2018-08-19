@@ -6,6 +6,8 @@ import {
     Router
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+
 import { UserService } from '../../../shared/services/user.service';
 import { ModalService } from '../../../shared/services/modal.service';
 
@@ -17,6 +19,7 @@ export class AuthGuard implements CanActivate {
     constructor(
         private userService: UserService,
         private modalService: ModalService,
+        private toastr: ToastrService,
         private router: Router) { }
 
     canActivate(
@@ -26,9 +29,15 @@ export class AuthGuard implements CanActivate {
         if (this.userService.isLoggedIn()) {
             return true;
         }
-        console.log(next.paramMap);
-        console.log(state.url);
-        this.modalService.createLoginRedirectModal();
-        return false;
+
+        if (this.router.navigated) {
+            this.modalService.createLoginRedirectModal();
+            return false;
+           
+        } else {
+            this.toastr.info('You must login to access this page.', 'Info');
+            this.router.navigate(['/auth/login']);
+            return false;
+        }
     }
 }

@@ -1,0 +1,13 @@
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+li:hover {
+    background: #375a7f;
+}
+
+img {
+    max-height: auto;
+    max-width: 10%;
+}

@@ -1,5 +1,5 @@
 import { User } from "./user.model";
-import { Meme } from "../../memes/shared/models/meme.model";
+import { Meme } from "../../memes/shared/models/view-models/meme.model";
 
 export interface Comment {
     _id: string;

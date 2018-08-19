@@ -1,0 +1,54 @@
+import { Component, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { CustomValidators } from '../../shared/validators/custom.validators';
+import { UserService } from '../../shared/services/user.service';
+import { SharedDataService } from '../../memes/shared/services/sharedData.service';
+import { CategoryService } from '../services/category.service';
+
+@Component({
+    selector: 'app-category-create',
+    templateUrl: './category-create.component.html',
+    styleUrls: ['./category-create.component.css']
+})
+export class CategoryCreateComponent implements OnDestroy {
+    categoryForm: FormGroup;
+    createSub: Subscription;
+
+    constructor(
+        private fb: FormBuilder,
+        private userService: UserService,
+        private categoryService: CategoryService,
+        private dataService: SharedDataService,
+        private router: Router) {
+        this.categoryForm = this.fb.group({
+            creator: [userService.user._id],
+            name: ['', [
+                Validators.required,
+                Validators.minLength(5)]],
+            icon: ['', [
+                Validators.required,
+                CustomValidators.customPattern(/\.jpg$|\.jpeg$|\.png$/, 'memtype')]]
+        })
+    }
+
+    ngOnDestroy(): void {
+        if (this.createSub) {
+            this.createSub.unsubscribe();
+        }
+    }
+
+    onSubmit(): void {
+        if (this.categoryForm.valid) {
+            this.createSub = this.categoryService.createCategory(this.categoryForm.value)
+                .subscribe(() => {
+                    this.dataService.changeCategory(this.f.category.value);
+                    this.router.navigate(['/memes']);
+                });
+        }
+    }
+
+    get f() { return this.categoryForm.controls; }
+}

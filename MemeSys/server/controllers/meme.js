@@ -7,7 +7,7 @@ function getMemes(req, res) {
     const limit = +req.query.limit || null;
 
     memeService
-        .get(criteria, { skip: skip * limit, limit: limit }, 'category')
+        .get(criteria, {sort: { createdOn: -1 }, skip: skip * limit, limit: limit }, 'category')
         .then(memes => {
             res.success({ memes });
         })
@@ -71,6 +71,15 @@ function getMemeById(req, res) {
         .catch(err => res.error(err));
 }
 
+function createMeme(req, res) {
+    const meme = req.body;
+
+    memeService
+        .create(meme)
+        .then(newMeme => res.success({ meme: newMeme }, 'Meme successfully created.'))
+        .catch(err => res.error(err));
+}
+
 function deleteMemeById(req, res) {
     const memeId = req.params.id;
 
@@ -113,6 +122,7 @@ router
     .get('/:id', getMemeById)
     .get('/vote/:sort/:skip/:limit', getMemesByUpvotes)
     .get('/fresh/:sort/:skip/:limit', getFreshMemes)
+    .post('/create', createMeme)
     .delete('/:id', deleteMemeById)
     .post('/vote', voteMeme);
 

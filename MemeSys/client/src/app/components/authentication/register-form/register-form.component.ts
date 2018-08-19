@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidationService } from '../shared/services/validation.service';
-import { CustomValidators } from '../shared/validators/custom.validators';
+import { CustomValidators } from '../../shared/validators/custom.validators';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({
@@ -21,7 +21,9 @@ export class RegisterFormComponent implements OnDestroy {
             name: ['', [
                 Validators.required,
                 Validators.pattern('[a-zA-Zа-яА-Я]+')]],
-                avatar: ['', Validators.required],
+            avatar: ['', [
+                Validators.required, 
+                CustomValidators.customPattern(/\.jpg$|\.jpeg$|\.png$/, 'memtype')]],
             password: ['', [
                 Validators.required,
                 CustomValidators.customPattern(/^.{3,16}$/, 'range'),
@@ -37,11 +39,11 @@ export class RegisterFormComponent implements OnDestroy {
         this.authService.clearRegisterSubscription();
     }
 
-    onPasswordClick(): void {
+    onPasswordFocus(): void {
         this.hideInfo = false;
-    }    
+    }
 
-    onSubmit(): void {        
+    onSubmit(): void {
         if (this.registerForm.valid) {
             this.authService.register(this.registerForm.value);
         }
@@ -49,6 +51,6 @@ export class RegisterFormComponent implements OnDestroy {
 
     get f() { return this.registerForm.controls; }
 
-    get errors() {return this.validationService.errors; }
+    get errors() { return this.validationService.errors; }
 
 }

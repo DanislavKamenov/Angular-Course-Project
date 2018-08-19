@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 
 import { MemeService } from '../shared/services/meme.service';
 import { SharedDataService } from '../shared/services/sharedData.service';
-import { Meme } from '../shared/models/meme.model';
+import { Meme } from '../shared/models/view-models/meme.model';
 
 @Component({
     selector: 'app-meme-list',
@@ -12,19 +12,6 @@ import { Meme } from '../shared/models/meme.model';
 })
 export class MemeListComponent implements OnInit, OnDestroy {
     private _category: string;
-    set category(id: string) {
-        if (this.memesSub) {
-            this.memesSub.unsubscribe();
-        }
-
-        this.skipCount = 0;
-        this.memesSub = this.memeSerivce.getMemesByCriteria(id, this.skipCount, this.limitCount)
-            .subscribe(memes => this.memes = memes);
-        this._category = id;
-    };
-    get category() {
-        return this._category;
-    }
     memes: Meme[];
     skipCount: number = 0;
     limitCount: number = 3;
@@ -51,4 +38,19 @@ export class MemeListComponent implements OnInit, OnDestroy {
         this.memesSub = this.memeSerivce.getMemesByCriteria(this.category, this.skipCount, this.limitCount)
         .subscribe(memes => this.memes = [...this.memes, ...memes]);
     }
+
+    get category() {
+        return this._category;
+    }
+
+    set category(id: string) {
+        if (this.memesSub) {
+            this.memesSub.unsubscribe();
+        }
+
+        this.skipCount = 0;
+        this.memesSub = this.memeSerivce.getMemesByCriteria(id, this.skipCount, this.limitCount)
+            .subscribe(memes => this.memes = memes);
+        this._category = id;
+    };    
 }

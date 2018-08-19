@@ -1,0 +1,14 @@
+<ul class="nav" *ngIf="tryGetUser() as user">
+    <li class="nav-item dropdown" ngbDropdown>
+        <a class="nav-link dropdown-toggle" ngbDropdownToggle>Welcome {{user.name}}</a>
+        <div class="dropdown-menu" ngbDropdownMenu>
+            <div class="admin-controls" [hidden]="!user.isAdmin">
+                <a class="dropdown-item" routerLink="/admin/panel">Admin Panel</a>
+                <div class="dropdown-divider"></div>
+            </div>
+            <a class="dropdown-item" routerLink="/profile">Profile</a>
+            <a class="dropdown-item" routerLink="/my-memes">My Memes</a>
+            <a class="dropdown-item" routerLink="/" (click)="logout()">Logout</a>
+        </div>
+    </li>
+</ul>

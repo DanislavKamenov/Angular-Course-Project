@@ -1,0 +1,35 @@
+<div class="form col-lg-6 jumbotron">
+    <legend>Create Meme</legend>  
+<form [formGroup]="memeForm" (ngSubmit)="onSubmit">
+    <fieldset>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input class="form-control bg-secondary text-white" id="title" placeholder="Enter title" type="text"
+            [ngClass]="{'is-invalid': (f.title.touched || f.title.dirty) && f.title.errors}" 
+            formControlName="title">
+            <div class="invalid-feedback">
+                <div [hidden]="!f.title.errors?.required">Title is required.</div>
+                <div [hidden]="!f.title.errors?.minlength">Title must be at least 5 characters long.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="image">Image Url</label>
+            <input class="form-control bg-secondary text-white" id="image" placeholder="Enter image" type="text"
+            [ngClass]="{'is-invalid': (f.image.touched || f.image.dirty) && f.image.errors}" 
+            formControlName="image">
+            <div class="invalid-feedback">
+                <div [hidden]="!f.image.errors?.required">Image is required.</div>
+                <div [hidden]="!f.image.errors?.memtype">Image must be of type jpg, jpeg or png.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="category">Select a category</label>
+            <select class="form-control bg-secondary text-white" id="category"
+            formControlName="category">
+            <option *ngFor="let c of categories$ | async" value="{{c._id}}">{{c.name}}</option>
+            </select>
+          </div>
+        <button type="submit" class="btn btn-primary" [disabled]="memeForm.invalid" (click)="onSubmit()">Submit</button>
+    </fieldset>
+</form>
+</div>

@@ -24,9 +24,7 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private toastr: ToastrService) { 
-            console.log('new authService instance');
-        }    
+        private toastr: ToastrService) { }    
 
     login(payload: LoginInput): void {
         this.login$ = this.http

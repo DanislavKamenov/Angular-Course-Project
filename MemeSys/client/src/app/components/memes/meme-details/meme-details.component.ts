@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
-import { Meme } from '../shared/models/meme.model';
+import { Meme } from '../shared/models/view-models/meme.model';
 import { MemeService } from '../shared/services/meme.service';
 import { CommentService } from '../../shared/services/comment.service';
 

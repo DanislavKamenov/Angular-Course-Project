@@ -3,9 +3,10 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-import { Meme } from '../models/meme.model';
+import { Meme } from '../models/view-models/meme.model';
 import { ServerResponse } from '../../../shared/models/server-response.model';
 import { UserService } from '../../../shared/services/user.service';
+import { MemeInput } from '../models/input-models/meme-input.model';
 
 const root: string = '/api/';
 
@@ -16,6 +17,7 @@ export class MemeService {
     private allMemesUrl: string = `${root}meme/`;
     private voteUrl: string = `${this.allMemesUrl}vote/`;
     private freshUrl: string = `${this.allMemesUrl}fresh/`;
+    private createUrl: string = `${this.allMemesUrl}create/`;
 
     constructor(
         private http: HttpClient,
@@ -26,7 +28,7 @@ export class MemeService {
             case 'hot':
                 return this.getMemesByVotes(-1, skip, limit);
             case 'fresh':
-                return this.getFreshMemes(1, skip, limit);
+                return this.getFreshMemes(-1, skip, limit);
             default:
                 return this.getMemesByCategory(criteria, skip, limit);
         }
@@ -59,6 +61,10 @@ export class MemeService {
     getOneMemeById(memeId: string): Observable<Meme> {
         const oneMemeUrl = this.allMemesUrl + memeId;
         return this.getMemeRequest(oneMemeUrl);
+    }
+
+    createMeme(meme: MemeInput) {
+        return this.postMemeRequest(this.createUrl, meme);
     }
 
     deleteMeme(memeId: string): Observable<Meme> {

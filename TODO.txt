@@ -1,4 +1,6 @@
 TODO: 
-Improve comment updaging.
 Improve commentService change emitting.
 Revise behaviour subject implementation.
+Revise OR check, in form validation.
+Move sub/unsub from auth service to forms.
+Revise Memetype regex validator.

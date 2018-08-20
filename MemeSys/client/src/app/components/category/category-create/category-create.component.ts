@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 import { CustomValidators } from '../../shared/validators/custom.validators';
 import { UserService } from '../../shared/services/user.service';
@@ -21,8 +20,7 @@ export class CategoryCreateComponent implements OnDestroy {
         private fb: FormBuilder,
         private userService: UserService,
         private categoryService: CategoryService,
-        private dataService: SharedDataService,
-        private router: Router) {
+        private dataService: SharedDataService) {
         this.categoryForm = this.fb.group({
             creator: [userService.user._id],
             name: ['', [
@@ -43,9 +41,9 @@ export class CategoryCreateComponent implements OnDestroy {
     onSubmit(): void {
         if (this.categoryForm.valid) {
             this.createSub = this.categoryService.createCategory(this.categoryForm.value)
-                .subscribe(() => {
-                    this.dataService.changeCategory(this.f.category.value);
-                    this.router.navigate(['/memes']);
+                .subscribe((category) => {
+                    this.categoryForm.reset();
+                    this.dataService.addNewCategory(category);
                 });
         }
     }

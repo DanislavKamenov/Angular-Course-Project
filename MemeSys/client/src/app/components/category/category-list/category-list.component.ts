@@ -14,19 +14,17 @@ import { Category } from '../models/view-models/category.model';
 export class CategoryListComponent implements OnInit {
     categories$: Observable<Category[]>;
     currentCategory$: Observable<string>;
-    cat: string;
 
     constructor(
         private catService: CategoryService,
         private dataService: SharedDataService) { }
 
     ngOnInit(): void {
-        console.log('t2');
         this.categories$ = this.catService.getAllCategories();
-        this.currentCategory$ = this.dataService.memeSource;
+        this.currentCategory$ = this.dataService.categoryChanges$;
     }
 
     onClick(catId: string): void {
-        this.dataService.changeCategory(catId);
+        this.dataService.changeDisplayCategory(catId);
     }
 }

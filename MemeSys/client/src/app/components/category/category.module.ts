@@ -7,7 +7,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryMenuComponent } from './category-menu/category-menu.component';
 import { PopularListComponent } from './popular-list/popular-list.component';
 import { CategoryCreateComponent } from './category-create/category-create.component';
-
+import { CategoryManageComponent } from './category-manage/category-manage.component';
 @NgModule({
   imports: [
       CommonModule,
@@ -18,8 +18,8 @@ import { CategoryCreateComponent } from './category-create/category-create.compo
       CategoryListComponent, 
       PopularListComponent, 
       CategoryMenuComponent, 
-      CategoryCreateComponent
+      CategoryCreateComponent, CategoryManageComponent
     ],
-  exports: [CategoryListComponent, CategoryMenuComponent, CategoryCreateComponent]
+  exports: [CategoryListComponent, CategoryMenuComponent, CategoryCreateComponent, CategoryManageComponent]
 })
 export class CategoryModule { }

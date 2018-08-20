@@ -1,7 +1,10 @@
-<p>
-  admin-panel works!
-</p>
-<div class="category-container bg-secondary float-left">
-    <app-category-list></app-category-list>
+<button class="category-button btn" 
+(click)="onCategoryButtonClick()"
+[ngClass]="{'btn-primary': isFormHidden,
+            'btn-danger': !isFormHidden}">{{isFormHidden ? 'Manage Categories' : 'Close Tab'}}</button>
+<div class="category-panel-container" [hidden]="isFormHidden">
+    <div class="category-list-container bg-secondary float-left">
+        <app-category-manage></app-category-manage>
+    </div>
+    <app-category-create></app-category-create>
 </div>
-<app-category-create></app-category-create>

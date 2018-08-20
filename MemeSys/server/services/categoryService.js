@@ -1,38 +1,40 @@
 const Category = require('../models/Category');
+const Meme = require('../models/Meme');
+const memeService = require('./memeService');
 const crud = require('../infrastructure/crud');
 
 const categoryCrud = crud(Category);
 
 module.exports = {
-    create: category => 
+    create: category =>
         new Promise((resolve, reject) => {
             categoryCrud
                 .create(category)
                 .then(resolve)
                 .catch(reject);
         }),
-    getAll: (options, populate) => 
+    getAll: (options, populate) =>
         new Promise((resolve, reject) => {
             categoryCrud
                 .getAll(options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
-    get: (query, options, populate) => 
+    get: (query, options, populate) =>
         new Promise((resolve, reject) => {
             categoryCrud
                 .get(query, options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
-    getOne: (query, options, populate) => 
+    getOne: (query, options, populate) =>
         new Promise((resolve, reject) => {
             categoryCrud
                 .getOne(query, options, populate)
                 .then(resolve)
                 .catch(reject);
         }),
-    update: (query, updatedEntity, options) => 
+    update: (query, updatedEntity, options) =>
         new Promise((resolve, reject) => {
             categoryCrud
                 .update(query, updatedEntity, options)
@@ -40,14 +42,25 @@ module.exports = {
                 .catch(reject);
         }),
     //Remove functions need to be expanded to handle the DB hierarcy
-    removeOne: (query, options) => 
+    removeOne: (id, options) =>
         new Promise((resolve, reject) => {
-            categoryCrud
-                .removeOne(query, options)
-                .then(resolve)
-                .catch(reject);
+            Meme.find({ category: id })
+                .then(memes => {
+                    const promises = memes.map(m =>
+                        memeService
+                            .removeOne({ _id: m._id }));
+
+                    Promise
+                        .all(promises)
+                        .then(() =>
+                            Category
+                                .remove({ _id: id })
+                                .then(resolve)
+                                .catch(reject))
+                        .catch(reject);
+                })
         }),
-    removeMany: (query) => 
+    removeMany: (query) =>
         new Promise((resolve, reject) => {
             categoryCrud
                 .removeMany(query)

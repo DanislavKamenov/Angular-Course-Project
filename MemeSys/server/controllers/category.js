@@ -17,8 +17,18 @@ function createCategory(req, res) {
         .catch(err => res.error(err));
 }
 
+function deleteCategory(req, res) {
+    const catId = req.params.id;
+
+    categoryService
+        .removeOne(catId)
+        .then((deleteCount) => res.success({ category: 'null' }, 'Category successfully deleted.'))
+        .catch(err => console.log(err));
+}
+
 router
     .get('/', getCategories)
-    .post('/', createCategory);
+    .post('/', createCategory)
+    .delete('/:id', deleteCategory);
 
 module.exports = router;

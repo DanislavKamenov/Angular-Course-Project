@@ -13,7 +13,7 @@ const root = '/api/';
     providedIn: 'root'
 })
 export class CategoryService {   
-    private allUrl: string = root + 'category';
+    private allUrl: string = `${root}category/`;
     
     constructor(private http: HttpClient) { console.log('cat service'); }
 
@@ -31,7 +31,17 @@ export class CategoryService {
             .post<ServerResponse<Category>>(this.allUrl, category)
             .pipe(
                 catchError(this.handleError<Category>()),    
-                map(res => res.data.categorie)
+                map(res => res.data.category)
+            );
+    }
+
+    deleteCategory(id: string): Observable<Category> {
+        const categoryDeleteUrl = `${this.allUrl}${id}`;
+        return this.http
+            .delete<ServerResponse<Category>>(categoryDeleteUrl)
+            .pipe(
+                catchError(this.handleError<Category>()),    
+                map(res => res.data.category)
             );
     }
 

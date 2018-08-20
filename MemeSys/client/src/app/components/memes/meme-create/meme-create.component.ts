@@ -52,7 +52,7 @@ export class MemeCreateComponent implements OnInit, OnDestroy {
         if (this.memeForm.valid) {
             this.createSub = this.memeService.createMeme(this.memeForm.value)
                 .subscribe(() => {
-                    this.dataService.changeCategory(this.f.category.value);
+                    this.dataService.changeDisplayCategory(this.f.category.value);
                     this.router.navigate(['/memes']);
                 });
         }

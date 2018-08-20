@@ -15,12 +15,11 @@ export class PopularListComponent implements OnInit {
     constructor(private dataService: SharedDataService) { }
 
     ngOnInit(): void {
-        console.log('t1');
-        this.currentCategory$ = this.dataService.memeSource;
+        this.currentCategory$ = this.dataService.categoryChanges$;
     }
 
     onClick(catId: string): void {
-        this.dataService.changeCategory(catId);
+        this.dataService.changeDisplayCategory(catId);
     }
 
 }

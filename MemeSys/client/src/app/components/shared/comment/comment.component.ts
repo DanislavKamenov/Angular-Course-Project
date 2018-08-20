@@ -23,7 +23,6 @@ export class CommentComponent {
 
     canDelete(): boolean {
         const user = this.userService.user;
-        console.log(user);
         return user && (user.isAdmin || user._id === this.comment.creator._id);
     }
 

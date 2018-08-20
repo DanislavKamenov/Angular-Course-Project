@@ -1,7 +1,8 @@
 <h4>Categories:</h4>
 <ul class="list-group" *ngIf="currentCategory$ | async as cat">
     <a *ngFor="let c of categories$ | async" (click)="onClick(c._id)" routerLink="/memes/">
-        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" [ngClass]="{'active': cat === c._id}">
+        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+        [ngClass]="{'active': cat === c._id}">
             {{c.name}}
             <img src="{{c.icon}}" alt="category-logo">
         </li>

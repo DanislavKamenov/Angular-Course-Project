@@ -1,0 +1,21 @@
+a {
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    max-width: 88%;
+}
+
+a:hover {
+    background: #375a7f;
+}
+
+img {
+    max-height: auto;
+    max-width: 10%;
+}
+
+button {
+    float: right;
+    position: relative;
+    bottom: 50%;
+}

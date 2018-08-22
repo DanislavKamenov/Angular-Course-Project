@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SharedDataService } from '../../memes/shared/services/sharedData.service';
+import { SharedDataService } from '../../shared/services/sharedData.service';
 
 
 @Component({

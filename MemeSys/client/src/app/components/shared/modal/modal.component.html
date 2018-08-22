@@ -11,5 +11,7 @@
     <button *ngIf="modalType === 'redirect'" type="button" class="btn btn-primary" 
     routerLink="{{redirectUrl}}"
     (click)="activeModal.close('Redirect click')">{{buttonText}}</button>
+    <button *ngIf="modalType === 'confirm'" type="button" class="btn btn-primary"
+    (click)="executeActionAndClose()">{{buttonText}}</button>
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
 </div>

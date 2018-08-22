@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 import { ServerResponse } from '../models/server-response.model';
 import { Comment } from '../models/comment.model';
@@ -23,14 +23,13 @@ export class CommentService {
 
     createComment(content: {[key: string]: string}, query: {[key: string]: string}): Observable<Comment> {
         const commentToSend = {
-            creator: this.userService.user._id,
+            creator: this.userService.currentUser._id,
             content,
             query
         }
         return this.http
             .post<ServerResponse<Comment>>(this.commentUrl, commentToSend)
             .pipe(
-                catchError(this.handleError<Comment>()),
                 map(res => res.data.comment)
             );
     }
@@ -41,25 +40,11 @@ export class CommentService {
         return this.http
             .delete<ServerResponse<Comment>>(deleteUrl)
             .pipe(
-                catchError(this.handleError<Comment>()),
                 map(res => res.data.comment)
             );
     }
 
     emitChange(): void {
         return this.commentStateSource.next(true);
-    }
-
-    private handleError<T>(result?: T) {
-        return (res: HttpErrorResponse) => {
-            console.log(res);
-
-            const response: ServerResponse<T> = {
-                success: true,
-                statusCode: 200,
-                data: { memes: result }
-            }
-            return of(response);
-        }
     }
 }

@@ -1,6 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ValidationService } from '../shared/services/validation.service';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { StaticCustomValidators } from '../../shared/validators/static-custom.validators';
 import { CustomValidators } from '../../shared/validators/custom.validators';
 import { AuthService } from '../shared/services/auth.service';
 
@@ -9,34 +12,57 @@ import { AuthService } from '../shared/services/auth.service';
     templateUrl: './register-form.component.html',
     styleUrls: ['./register-form.component.css']
 })
-export class RegisterFormComponent implements OnDestroy {
+export class RegisterFormComponent implements OnInit, OnDestroy {
     registerForm: FormGroup;
+    customAvatar: boolean = false;
     hideInfo: boolean = true;
+    registerSub: Subscription;
+
     constructor(
         private fb: FormBuilder,
-        private validationService: ValidationService,
-        private authService: AuthService) {
+        private authService: AuthService,
+        private router: Router) { }
+
+    ngOnInit(): void {
+        this.createRegisterForm();
+    }
+
+    ngOnDestroy(): void {
+        if(this.registerSub) {
+            this.registerSub.unsubscribe();
+        }
+    }
+
+    createRegisterForm(): void {
         this.registerForm = this.fb.group({
             email: ['', [Validators.required, Validators.email]],
             name: ['', [
                 Validators.required,
                 Validators.pattern('[a-zA-Zа-яА-Я]+')]],
-            avatar: ['', [
-                Validators.required, 
-                CustomValidators.customPattern(/\.jpg$|\.jpeg$|\.png$/, 'memtype')]],
+            avatar: [''],
             password: ['', [
                 Validators.required,
-                CustomValidators.customPattern(/^.{3,16}$/, 'range'),
-                CustomValidators.customPattern(/[^\wа-яА-Я\d]*(([0-9]+.*[A-Za-zа-яА-Я]+.*)|[A-Za-zа-яА-Я]+.*([0-9]+.*))/, 'letterAndNumber'),
-                CustomValidators.customPattern(/^[a-zA-Zа-яА-Я0-9]+$/, 'noSpecialCharacters')]],
+                StaticCustomValidators.customPattern(/^.{3,16}$/, 'range'),
+                StaticCustomValidators.customPattern(/[^\wа-яА-Я\d]*(([0-9]+.*[A-Za-zа-яА-Я]+.*)|[A-Za-zа-яА-Я]+.*([0-9]+.*))/, 'letterAndNumber'),
+                StaticCustomValidators.customPattern(/^[a-zA-Zа-яА-Я0-9]+$/, 'noSpecialCharacters')]],
             repeatPassword: ['', [
                 Validators.required,
-                CustomValidators.mustMatch('password')]]
-        })
+                new CustomValidators().mustMatch('password')]]
+        });
+    } 
+
+    enableCustomAvatar(): void {
+        this.customAvatar = true;
+        this.f.avatar.setValidators([
+            Validators.required, 
+            StaticCustomValidators.customPattern(/\.jpg$|\.jpeg$|\.png$/, 'memtype')]);
+        this.f.avatar.updateValueAndValidity();
     }
 
-    ngOnDestroy(): void {
-        this.authService.clearRegisterSubscription();
+    disableCustomAvatar(): void {
+        this.customAvatar = false;
+        this.f.avatar.clearValidators();
+        this.f.avatar.reset();
     }
 
     onPasswordFocus(): void {
@@ -45,12 +71,15 @@ export class RegisterFormComponent implements OnDestroy {
 
     onSubmit(): void {
         if (this.registerForm.valid) {
-            this.authService.register(this.registerForm.value);
+            this.authService
+                .register(this.registerForm.value)
+                .subscribe((token) => {
+                    this.authService.saveToken(token);
+                    this.router.navigate(['/home'])
+                })
         }
     }
 
     get f() { return this.registerForm.controls; }
-
-    get errors() { return this.validationService.errors; }
 
 }

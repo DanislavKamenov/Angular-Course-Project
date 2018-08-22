@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
-const { secret, duration }  = require('../config/config').jwt;
+const { secret, duration } = require('../config/config').jwt;
 
 module.exports = (savedUser, data) => {
     const payload = {
         sub: savedUser.id,
-        user: savedUser                
+        user: savedUser            
     };            
   
     // create a token string

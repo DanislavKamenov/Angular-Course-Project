@@ -1,11 +1,23 @@
 <div class="form col-lg-6 jumbotron">
     <legend>Register</legend>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <fieldset>            
+        <fieldset>    
+            <div class="form-group radio">
+                <div class="custom-control custom-radio default-avatar">
+                    <input id="default-avatar" name="customRadio" class="custom-control-input" checked="" type="radio"
+                    (change)="disableCustomAvatar()">
+                    <label class="custom-control-label" for="default-avatar">Default Avatar</label>
+                </div>
+                <div class="custom-control custom-radio custom-avatar">
+                    <input id="custom-avatar" name="customRadio" class="custom-control-input" type="radio"
+                    (change)="enableCustomAvatar()">
+                    <label class="custom-control-label" for="custom-avatar">Custom Avatar</label>
+                </div>
+            </div>             
             <div class="form-group">
                 <label for="email">Email address</label>
                 <input class="form-control bg-secondary text-white" id="email" placeholder="Enter email" type="email"
-                [ngClass]="{'is-invalid': (f.email.touched || f.email.dirty) && f.email.errors}" 
+                [ngClass]="{'is-invalid': (f.email.touched && f.email.dirty) && f.email.errors}" 
                 formControlName="email">
                 <div class="invalid-feedback">
                     <div [hidden]="!f.email.errors?.required">Email is required.</div>
@@ -15,17 +27,17 @@
             <div class="form-group">
                 <label for="name">Name</label>
                 <input class="form-control bg-secondary text-white" id="name" placeholder="Enter your name" type="text" 
-                [ngClass]="{'is-invalid': (f.name.touched || f.name.dirty) && f.name.errors}"                 
+                [ngClass]="{'is-invalid': (f.name.touched && f.name.dirty) && f.name.errors}"                 
                 formControlName="name"> 
                 <div class="invalid-feedback">
                     <div [hidden]="!f.name.errors?.required">Name is required.</div>
                     <div [hidden]="!f.name.errors?.pattern">Name is invalid.</div>
                 </div>                
             </div>
-            <div class="form-group">
+            <div class="form-group" [hidden]="!customAvatar">
                     <label for="avatar">Avatar Url</label>
                     <input class="form-control bg-secondary text-white" id="avatar" placeholder="Enter avatar" type="text" 
-                    [ngClass]="{'is-invalid': (f.avatar.touched || f.avatar.dirty) && f.avatar.errors}"                 
+                    [ngClass]="{'is-invalid': (f.avatar.touched && f.avatar.dirty) && f.avatar.errors}"                 
                     formControlName="avatar"> 
                     <div class="invalid-feedback">
                         <div [hidden]="!f.avatar.errors?.required">Avatar is required.</div>
@@ -35,7 +47,7 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input class="form-control bg-secondary text-white" id="exampleInputPassword1" placeholder="Password" type="password"
-                [ngClass]="{'is-invalid': (f.password.touched || f.password.dirty) && f.password.errors}" 
+                [ngClass]="{'is-invalid': (f.password.touched && f.password.dirty) && f.password.errors}" 
                 (focus)="onPasswordFocus()"               
                 formControlName="password">
                 <app-register-password-info [hidden]="hideInfo" [password]="f.password"></app-register-password-info>
@@ -43,7 +55,7 @@
             <div class="form-group">
                     <label for="repeatPassword">Repeat Password</label>
                     <input class="form-control bg-secondary text-white" id="repeatPassword" placeholder="Repeat Passowrd" type="password"
-                    [ngClass]="{'is-invalid': (f.repeatPassword.touched || f.repeatPassword.dirty) && 
+                    [ngClass]="{'is-invalid': (f.repeatPassword.touched && f.repeatPassword.dirty) && 
                     f.repeatPassword.errors}" 
                     formControlName="repeatPassword">
                     <div class="invalid-feedback">

@@ -1,0 +1,17 @@
+<ngb-tabset class="tabs bg-primary" [justify]="justifySetting">
+    <ngb-tab id="test" title="Website Statistics">
+        <ng-template ngbTabContent>
+            <app-admin-statistics></app-admin-statistics>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Manage Categories">
+        <ng-template ngbTabContent>
+            <app-admin-category-manage></app-admin-category-manage>
+        </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Manage Users">
+        <ng-template ngbTabContent>
+            <app-admin-user-manage></app-admin-user-manage>
+        </ng-template>
+    </ngb-tab>
+</ngb-tabset>

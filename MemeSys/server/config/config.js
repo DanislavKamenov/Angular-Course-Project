@@ -10,6 +10,6 @@ module.exports = {
     production: {},
     jwt: {
         secret: 'D3nK@7@\'S r@nd0M s741nG.',
-        duration: '1h'
+        duration: '2h'
     }
 };

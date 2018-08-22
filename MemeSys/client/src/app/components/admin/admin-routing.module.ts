@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminGuard } from '../authentication/shared/guards/admin.guard';
 

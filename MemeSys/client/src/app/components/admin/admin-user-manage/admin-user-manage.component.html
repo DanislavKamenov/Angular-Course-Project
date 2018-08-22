@@ -1,0 +1,20 @@
+<table class="table table-hover">
+    <thead>
+        <tr class="table-primary">
+            <th scope="col">User</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Avatar Url</th>
+            <th scope="col">Actions</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="table-secondary" app-user-manage-row *ngFor="let u of users" [user]="u" (update)="handleUserUpdate($event)"></tr>
+        <tr class="table-dark">
+            <th scope="row">Total</th>
+            <td>20</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

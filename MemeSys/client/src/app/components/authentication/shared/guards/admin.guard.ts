@@ -8,8 +8,8 @@ import {
 import { Observable, Subscription } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
-import { UserService } from '../../../shared/services/user.service';
 import { ModalService } from '../../../shared/services/modal.service';
+import { UserService } from '../../../shared/services/user.service';
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +31,7 @@ export class AdminGuard implements CanActivate, OnDestroy {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        if (this.userService.isLoggedIn() && this.userService.user.isAdmin) {
+        if (this.userService.isLoggedIn() && this.userService.currentUser.isAdmin) {
             return true;
         }
 

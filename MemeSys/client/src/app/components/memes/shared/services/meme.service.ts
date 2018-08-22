@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Meme } from '../models/view-models/meme.model';
 import { ServerResponse } from '../../../shared/models/server-response.model';
-import { UserService } from '../../../shared/services/user.service';
 import { MemeInput } from '../models/input-models/meme-input.model';
+import { UserService } from '../../../shared/services/user.service';
 
 const root: string = '/api/';
 
@@ -73,18 +73,18 @@ export class MemeService {
     }
 
     vote(memeId: string, type: string): Observable<Meme> {
-        const userId = this.userService.user._id;
+        const userId = this.userService.currentUser._id;
 
         return this.postMemeRequest(this.voteUrl, { memeId, type, userId });
     }
 
     hasUserUpVoted(meme: Meme): boolean {
-        const userId = this.userService.user._id;
+        const userId = this.userService.currentUser._id;
         return meme.upVoted.includes(userId);
     }
 
     hasUserDownVoted(meme: Meme): boolean {
-        const userId = this.userService.user._id;
+        const userId = this.userService.currentUser._id;
         return meme.downVoted.includes(userId);
     }
 
@@ -92,7 +92,6 @@ export class MemeService {
         return this.http
         .get<ServerResponse<Meme[]>>(url)
         .pipe(
-            catchError(this.handleError<Meme[]>([])),
             map(res => res.data.memes)
         );
     }
@@ -101,7 +100,6 @@ export class MemeService {
         return this.http
         .get<ServerResponse<Meme>>(url)
         .pipe(
-            catchError(this.handleError<Meme>()),
             map(res => res.data.meme)
         );
     }
@@ -110,7 +108,6 @@ export class MemeService {
         return this.http
         .post<ServerResponse<Meme>>(url, data)
             .pipe(
-                catchError(this.handleError<Meme>()),
                 map(res => res.data.meme)
             );
     }
@@ -119,21 +116,7 @@ export class MemeService {
         return this.http
             .delete<ServerResponse<Meme>>(url)
             .pipe(
-                catchError(this.handleError<Meme>()),
                 map(res => res.data.meme)
             );
-    }
-
-    private handleError<T>(result?: T) {
-        return (res: HttpErrorResponse) => {
-            console.log(res);
-
-            const response: ServerResponse<T> = {
-                success: true,
-                statusCode: 200,
-                data: { memes: result }
-            }
-            return of(response);
-        }
     }
 }

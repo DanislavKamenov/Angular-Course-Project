@@ -1,5 +1,5 @@
 .category-container {
-    position: absolute;
+    position: fixed;
     left: 20px;
     border: 1px solid black;
     max-width: 25%;

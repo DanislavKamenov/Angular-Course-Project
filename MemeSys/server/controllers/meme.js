@@ -55,9 +55,7 @@ function getMemeById(req, res) {
                 name: '1',
                 avatar: '1',
                 roleNames: '1',
-                isAdmin: '1',
-                isSilenced: '1',
-                isBanned: '1'
+                isAdmin: '1'
             }
         }
     }];

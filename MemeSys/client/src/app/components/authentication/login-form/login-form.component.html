@@ -5,7 +5,7 @@
             <div class="form-group">
                 <label for="email">Email address</label>
                 <input class="form-control bg-secondary text-white" id="email" placeholder="Enter email" type="email"
-                [ngClass]="{'is-invalid': (f.email.touched || f.email.dirty) && f.email.errors}" 
+                [ngClass]="{'is-invalid': (f.email.touched && f.email.dirty) && f.email.errors}" 
                 formControlName="email">
                 <div class="invalid-feedback">
                     <div [hidden]="!f.email.errors?.required">Email is required.</div>
@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input class="form-control bg-secondary text-white" id="password" placeholder="Password" type="password"
-                [ngClass]="{'is-invalid': (f.password.touched || f.password.dirty) && f.password.errors}" 
+                [ngClass]="{'is-invalid': (f.password.touched && f.password.dirty) && f.password.errors}" 
                 formControlName="password">
                 <div class="invalid-feedback">
                     <div [hidden]="!f.password.errors?.required">Password is required.</div>

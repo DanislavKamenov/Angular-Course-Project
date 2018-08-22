@@ -1,3 +1,11 @@
 .invalid-feedback div::first-letter {
     text-transform: uppercase;
 }
+
+.radio > div {
+    display: inline-block;
+}
+
+.custom-avatar {
+    float: right;
+}

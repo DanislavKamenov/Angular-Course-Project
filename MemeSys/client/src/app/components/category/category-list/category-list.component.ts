@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { CategoryService } from '../services/category.service';
-import { SharedDataService } from '../../memes/shared/services/sharedData.service';
+import { SharedDataService } from '../../shared/services/sharedData.service';
 import { Category } from '../models/view-models/category.model';
 
 

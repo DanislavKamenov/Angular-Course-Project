@@ -1,11 +1,11 @@
 <div class="form col-lg-6 jumbotron">
     <legend>Create Category</legend>  
-<form [formGroup]="categoryForm" (ngSubmit)="onSubmit">
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
     <fieldset>
         <div class="form-group">
             <label for="name">Name</label>
             <input class="form-control bg-secondary text-white" id="name" placeholder="Enter name" type="text"
-            [ngClass]="{'is-invalid': (f.name.touched || f.name.dirty) && f.name.errors}" 
+            [ngClass]="{'is-invalid': (f.name.touched && f.name.dirty) && f.name.errors}" 
             formControlName="name">
             <div class="invalid-feedback">
                 <div [hidden]="!f.name.errors?.required">Name is required.</div>
@@ -15,14 +15,14 @@
         <div class="form-group">
             <label for="icon">Icon Url</label>
             <input class="form-control bg-secondary text-white" id="icon" placeholder="Enter icon" type="text"
-            [ngClass]="{'is-invalid': (f.icon.touched || f.icon.dirty) && f.icon.errors}" 
+            [ngClass]="{'is-invalid': (f.icon.touched && f.icon.dirty) && f.icon.errors}" 
             formControlName="icon">
             <div class="invalid-feedback">
                 <div [hidden]="!f.icon.errors?.required">Icon is required.</div>
                 <div [hidden]="!f.icon.errors?.memtype">Icon must be of type jpg, jpeg or png.</div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid" (click)="onSubmit()">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="categoryForm.invalid">Submit</button>
     </fieldset>
 </form>
 </div>

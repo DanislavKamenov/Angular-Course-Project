@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { ServerResponse } from '../../shared/models/server-response.model';
 import { Category } from '../models/view-models/category.model';
@@ -14,14 +14,22 @@ const root = '/api/';
 })
 export class CategoryService {   
     private allUrl: string = `${root}category/`;
+    private allAndMemes: string = `${this.allUrl}memes`;
     
     constructor(private http: HttpClient) { console.log('cat service'); }
 
     getAllCategories(): Observable<Category[]> {
         return this.http
             .get<ServerResponse<Category[]>>(this.allUrl)
-            .pipe(
-                catchError(this.handleError<Category[]>([])),    
+            .pipe( 
+                map(res => res.data.categories)
+            );
+    }
+
+    getAllCategoriesAndMemes(): Observable<Category[]> {
+        return this.http
+            .get<ServerResponse<Category[]>>(this.allAndMemes)
+            .pipe(    
                 map(res => res.data.categories)
             );
     }
@@ -29,8 +37,7 @@ export class CategoryService {
     createCategory(category: CategoryInput): Observable<Category> {
         return this.http
             .post<ServerResponse<Category>>(this.allUrl, category)
-            .pipe(
-                catchError(this.handleError<Category>()),    
+            .pipe(    
                 map(res => res.data.category)
             );
     }
@@ -39,22 +46,8 @@ export class CategoryService {
         const categoryDeleteUrl = `${this.allUrl}${id}`;
         return this.http
             .delete<ServerResponse<Category>>(categoryDeleteUrl)
-            .pipe(
-                catchError(this.handleError<Category>()),    
+            .pipe(  
                 map(res => res.data.category)
             );
-    }
-
-    private handleError<T>(result?: T) {
-        return (res: HttpErrorResponse) => {
-            console.log(res);
-
-            const response: ServerResponse<T> = {
-                success: true,
-                statusCode: 200,
-                data: { categories: result}
-            }
-            return of(response);
-        }
     }
 }

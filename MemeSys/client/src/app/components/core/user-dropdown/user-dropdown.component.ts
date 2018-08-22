@@ -22,6 +22,6 @@ export class UserDropdownComponent {
     }
 
     tryGetUser(): User {
-        return this.userService.user;
+        return this.userService.currentUser;
     }
 }

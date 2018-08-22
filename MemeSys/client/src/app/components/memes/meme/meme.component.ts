@@ -1,11 +1,11 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 
 import { Meme } from '../shared/models/view-models/meme.model';
 import { MemeService } from '../shared/services/meme.service';
 import { UserService } from '../../shared/services/user.service';
 import { ModalService } from '../../shared/services/modal.service';
+import { ChangeEvent } from '../../shared/models/change-event.model';
 
 @Component({
     selector: 'app-meme',
@@ -14,14 +14,14 @@ import { ModalService } from '../../shared/services/modal.service';
 })
 export class MemeComponent implements OnDestroy {
     @Input() meme: Meme;
+    @Output('memeUpdate') memeChange = new EventEmitter<ChangeEvent<Meme>>();
     voteSub: Subscription;
     deleteSub: Subscription;
 
     constructor(
         private memeService: MemeService,
         private userService: UserService,
-        private modalService: ModalService,
-        private router: Router) { }
+        private modalService: ModalService) { }
 
     ngOnDestroy(): void {
         if (this.voteSub) {
@@ -34,7 +34,9 @@ export class MemeComponent implements OnDestroy {
     }
 
     onDeleteClick(memeId: string):void {
-        this.deleteSub = this.memeService.deleteMeme(memeId).subscribe(() => this.router.navigate(['/memes']));
+        this.deleteSub = this.memeService
+            .deleteMeme(memeId)
+            .subscribe((meme) =>  this.memeChange.emit({reason: 'delete', data: meme}));
     }
 
     voteClickHandler(memeId: string, type: string): void {
@@ -47,8 +49,8 @@ export class MemeComponent implements OnDestroy {
     }    
 
     vote(memeId: string, type: string): void {
-        this.voteSub = this.memeService.vote(memeId, type).subscribe(meme => {
-            this.meme = meme;
+        this.voteSub = this.memeService.vote(memeId, type).subscribe(meme => {            
+            this.memeChange.emit({reason: 'vote', data: meme});
         });
     }
 
@@ -70,7 +72,7 @@ export class MemeComponent implements OnDestroy {
     }
 
     isUserAdmin(): boolean {
-        const user = this.userService.user;
+        const user = this.userService.currentUser;
         return user && user.isAdmin;
     }
 }

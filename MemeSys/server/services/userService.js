@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const Comment = require('../models/Comment');
-//Import memeService
+const memeService = require('./memeService');
 const crud = require('../infrastructure/crud');
 
 const userCrud = crud(User);
@@ -41,33 +41,32 @@ module.exports = {
                 .then(resolve)
                 .catch(reject);
         }),
-    // removeOne: (query) => {
-    //     return new Promise((resolve, reject) => {
-    //         Comment
-    //             .deleteMany({ creator: query._id })
-    //             .then(commentDeleteData =>
-    //                 postService
-    //                     .get({ creator: query._id })
-    //                     .then(posts => {
-    //                         let promises = [];
-    //                         for (const post of posts) {
-    //                             promises.push(postService
-    //                                 .removeOne({ _id: post._id }));
-    //                         }
+    removeOne: (query) => {
+        return new Promise((resolve, reject) => {
+            userCrud
+                .getOne(query)
+                .then(user => {
+                    memeService
+                        .get({ creator: user._id })
+                        .then(memes => {
+                            const promises = [];
+                            memes.forEach(m => {
+                                promises.push(memeService.removeOne({_id: m._id}));
+                            });
 
-    //                         Promise
-    //                             .all(promises)
-    //                             .then(deletedPosts => {
-    //                                 userCrud.removeOne(query)
-    //                                     .then(resolve)
-    //                                     .catch(reject);
-    //                             })
-    //                             .catch(reject);
-    //                     })
-    //                     .catch(reject)
-    //             )
-    //             .catch(reject);
-    //     }
-    //     );
-    // }
+                            Promise
+                                .all(promises)
+                                .then(() => {
+                                    user.remove()
+                                        .then(() => resolve(user))
+                                        .catch(reject);
+                                })
+                                .catch(reject);
+                        })
+                        .catch(reject);
+                })
+                .catch(reject);
+        }
+        );
+    }
 };

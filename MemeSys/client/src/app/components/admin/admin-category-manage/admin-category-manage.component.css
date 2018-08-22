@@ -1,0 +1,8 @@
+.category-list-container {
+    position: absolute;
+    left: 20px;
+    border: 1px solid black;
+    max-width: 25%;
+    padding: 10px;
+    border-radius: 10px;
+}

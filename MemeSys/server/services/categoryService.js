@@ -46,19 +46,18 @@ module.exports = {
         new Promise((resolve, reject) => {
             Meme.find({ category: id })
                 .then(memes => {
-                    const promises = memes.map(m =>
-                        memeService
-                            .removeOne({ _id: m._id }));
+                    const promises = memes.map(m => memeService.removeOne({ _id: m._id }));
 
                     Promise
                         .all(promises)
                         .then(() =>
                             Category
                                 .remove({ _id: id })
-                                .then(resolve)
+                                .then((deleteCount) => resolve(id))
                                 .catch(reject))
                         .catch(reject);
                 })
+                .catch(reject);
         }),
     removeMany: (query) =>
         new Promise((resolve, reject) => {

@@ -6,7 +6,7 @@
     [scrollWindow]="true"
     (scrolled)="onScrollDown()">
     <div class="meme-container" *ngFor="let m of memes">
-        <app-meme [meme]="m"></app-meme>
+        <app-meme [meme]="m" (memeUpdate)="HandleMemeUpdate($event)"></app-meme>
     </div>
 </div>
 

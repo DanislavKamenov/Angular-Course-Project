@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Subscription, throwError } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
+import { SharedDataService } from '../../../shared/services/sharedData.service';
 import { LoginInput } from '../models/login.input-model';
 import { RegisterInput } from '../models/register.input-model';
 import { ServerResponse } from '../../../shared/models/server-response.model';
 import { ServerToken } from '../../../shared/models/server-token.model';
+import { User } from '../../../shared/models/user.model';
 
 const root = '/api/';
 
@@ -18,57 +21,38 @@ const root = '/api/';
 export class AuthService {
     private loginUrl: string = root + 'auth/login';
     private registerUrl: string = root + 'auth/signup';
-    private login$: Subscription;
-    private register$: Subscription;
 
     constructor(
         private http: HttpClient,
         private router: Router,
+        private jwtHelper: JwtHelperService,
+        private dataService: SharedDataService,
         private toastr: ToastrService) { }    
 
-    login(payload: LoginInput): void {
-        this.login$ = this.http
+    login(payload: LoginInput): Observable<ServerToken> {
+        return this.http
             .post<ServerResponse<ServerToken>>(this.loginUrl, payload)
             .pipe(
-                catchError(this.handleError),
-                map(res => res.data),
-                tap(this.saveToken)
+                map(res => res.data.token)
             )
-            .subscribe(() => this.router.navigate(['/home']));
     }
 
-    clearLoginSubscription() {
-        if (this.login$) this.login$.unsubscribe();
-    }
-
-    register(payload: RegisterInput): void {
-        this.register$ = this.http
+    register(payload: RegisterInput): Observable<ServerToken> {
+        return this.http
             .post<ServerResponse<ServerToken>>(this.registerUrl, payload)
             .pipe(
-                catchError(this.handleError),
-                map(res => res.data),
-                tap(this.saveToken)
-            )
-            .subscribe(() => this.router.navigate(['/home']));
-    }
-
-    clearRegisterSubscription() {
-        if (this.register$) this.register$.unsubscribe();
+                map(res => res.data.token)
+            );
     }
 
     logout() {
         localStorage.clear();
+        this.dataService.changeDisplayCategory('hot');
         this.toastr.success('You have successfully logged out.', 'Success:');
         this.router.navigate['/home'];
     }
 
-    private saveToken(data) {
-        localStorage.setItem('token', data.token);
-    }
-
-    private handleError = (res: HttpErrorResponse) => {
-        //Had to bind 'this'.
-        console.log(res);
-        return throwError('Authentication Failed.');
+    saveToken(token) {
+        localStorage.setItem('token', token);
     }
 }

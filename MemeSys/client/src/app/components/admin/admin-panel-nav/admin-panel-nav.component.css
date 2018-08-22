@@ -1,0 +1,21 @@
+.tabs {
+    margin: 20px;
+    background: gray;
+}
+
+.content {
+    border: 1px solid white;
+}
+
+#test {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background-color: #18BC9C;
+    border-color: #18BC9C;
+    /* &.active {
+      border-color: #18BC9C;
+      color: #18BC9C;
+      background-color: #fff;    
+    } */
+  }

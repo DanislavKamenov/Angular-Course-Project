@@ -12,9 +12,12 @@ module.exports = new PassportLocalStrategy({
     const user = {
         email: email.trim(),
         password: password.trim(),        
-        name: req.body.name.trim(),
-        avatar: req.body.avatar.trim()
+        name: req.body.name.trim()
     };
+    const avatar = req.body.avatar;
+    if (avatar && avatar.trim().length > 0) {
+        user.avatar = avatar;
+    }
     //TODO: rework this validation.
     userService
         .getOne({email})

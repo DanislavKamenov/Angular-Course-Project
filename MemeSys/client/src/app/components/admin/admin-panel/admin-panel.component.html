@@ -1,10 +1,2 @@
-<button class="category-button btn" 
-(click)="onCategoryButtonClick()"
-[ngClass]="{'btn-primary': isFormHidden,
-            'btn-danger': !isFormHidden}">{{isFormHidden ? 'Manage Categories' : 'Close Tab'}}</button>
-<div class="category-panel-container" [hidden]="isFormHidden">
-    <div class="category-list-container bg-secondary float-left">
-        <app-category-manage></app-category-manage>
-    </div>
-    <app-category-create></app-category-create>
-</div>
+<h2>Admin Panel</h2>
+<app-admin-panel-nav></app-admin-panel-nav>

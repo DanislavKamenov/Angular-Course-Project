@@ -36,7 +36,7 @@ function editComment(req, res) {
             });
         })
         .catch(err => {
-            res.error(err)
+            res.error(err);
             console.log(err);
         });
 }
@@ -50,7 +50,7 @@ function deleteComment(req, res) {
             res.success({ comment: oldComment }, 'Comment deleted.');
         })
         .catch(err => {
-            res.error(err)
+            res.error(err);
             console.log(err);
         });
 }

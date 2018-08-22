@@ -5,7 +5,7 @@
         <div class="form-group">
             <label for="title">Title</label>
             <input class="form-control bg-secondary text-white" id="title" placeholder="Enter title" type="text"
-            [ngClass]="{'is-invalid': (f.title.touched || f.title.dirty) && f.title.errors}" 
+            [ngClass]="{'is-invalid': (f.title.touched && f.title.dirty) && f.title.errors}" 
             formControlName="title">
             <div class="invalid-feedback">
                 <div [hidden]="!f.title.errors?.required">Title is required.</div>
@@ -15,7 +15,7 @@
         <div class="form-group">
             <label for="image">Image Url</label>
             <input class="form-control bg-secondary text-white" id="image" placeholder="Enter image" type="text"
-            [ngClass]="{'is-invalid': (f.image.touched || f.image.dirty) && f.image.errors}" 
+            [ngClass]="{'is-invalid': (f.image.touched && f.image.dirty) && f.image.errors}" 
             formControlName="image">
             <div class="invalid-feedback">
                 <div [hidden]="!f.image.errors?.required">Image is required.</div>

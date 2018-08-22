@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { CustomValidators } from '../../shared/validators/custom.validators';
+import { StaticCustomValidators } from '../../shared/validators/static-custom.validators';
 import { MemeService } from '../shared/services/meme.service';
 import { Category } from '../../category/models/view-models/category.model';
 import { UserService } from '../../shared/services/user.service';
-import { SharedDataService } from '../shared/services/sharedData.service';
+import { SharedDataService } from '../../shared/services/sharedData.service';
 import { CategoryService } from '../../category/services/category.service';
 
 @Component({
@@ -25,20 +25,10 @@ export class MemeCreateComponent implements OnInit, OnDestroy {
         private memeService: MemeService,
         private categoryService: CategoryService,
         private dataService: SharedDataService,
-        private router: Router) {
-        this.memeForm = this.fb.group({
-            creator: [userService.user._id],
-            title: ['', [
-                Validators.required,
-                Validators.minLength(5)]],
-            image: ['', [
-                Validators.required,
-                CustomValidators.customPattern(/\.jpg$|\.jpeg$|\.png$/, 'memtype')]],
-            category: ['', [Validators.required]]
-        })
-    }
+        private router: Router) { }
 
     ngOnInit(): void {
+        this.createMemeForm();
         this.categories$ = this.categoryService.getAllCategories();
     }
 
@@ -46,6 +36,20 @@ export class MemeCreateComponent implements OnInit, OnDestroy {
         if (this.createSub) {
             this.createSub.unsubscribe();
         }
+    }
+
+    createMemeForm(): void {
+        this.memeForm = this.fb.group({
+            creator: [''],
+            title: ['', [
+                Validators.required,
+                Validators.minLength(5)]],
+            image: ['', [
+                Validators.required,
+                StaticCustomValidators.customPattern(/[A-Za-z0-9]+\.jpg$|\.jpeg$|\.png$/, 'memtype')]],
+            category: ['', [Validators.required]]
+        });
+        this.f.creator.setValue(this.userService.currentUser._id);
     }
 
     onSubmit(): void {

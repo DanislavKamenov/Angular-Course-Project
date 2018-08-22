@@ -83,7 +83,7 @@ router.post('/signup', (req, res, next) => {
             return res.error(err, 401);
         }
 
-        const message = 'You have successfully signed up! Now you should be able to log in.';
+        const message = 'You have successfully signed up and logged in!';
         return res.success({ token }, message);
     })(req, res, next);
 });

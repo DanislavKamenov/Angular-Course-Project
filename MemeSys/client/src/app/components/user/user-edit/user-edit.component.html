@@ -1,0 +1,35 @@
+<div class="jumbotron">
+    <form [formGroup]="userEditForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input class="form-control bg-secondary text-white" id="email" placeholder="Enter email" type="email" 
+                [ngClass]="{'is-invalid': (f.email.touched && f.email.dirty) && f.email.errors}"
+                formControlName="email">
+            <div class="invalid-feedback">
+                <div [hidden]="!f.email.errors?.required">Email is required.</div>
+                <div [hidden]="!f.email.errors?.email">Email is invalid.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control bg-secondary text-white" 
+                [ngClass]="{'is-invalid': (f.name.touched && f.name.dirty) && f.name.errors}"
+                formControlName="name">
+            <div class="invalid-feedback">
+                <div [hidden]="!f.name.errors?.required">Name is required.</div>
+                <div [hidden]="!f.name.errors?.pattern">Name is invalid.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="avatar">Avatar</label>
+            <input type="text" id="avatar" class="form-control bg-secondary text-white" 
+                [ngClass]="{'is-invalid': (f.avatar.touched && f.avatar.dirty) && f.avatar.errors}"
+                formControlName="avatar">
+            <div class="invalid-feedback">
+                <div [hidden]="!f.avatar.errors?.required">Avatar is required.</div>
+                <div [hidden]="!f.avatar.errors?.memtype">Avatar must be of type jpg, jpeg or png.</div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="userEditForm.invalid || userEditForm.pristine">Submit</button>
+    </form>
+</div>

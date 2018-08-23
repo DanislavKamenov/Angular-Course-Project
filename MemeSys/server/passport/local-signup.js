@@ -37,6 +37,7 @@ module.exports = new PassportLocalStrategy({
                                     _id: savedUser._id,
                                     email: savedUser.email,
                                     name: savedUser.name,
+                                    avatar: savedUser.avatar,
                                     isAdmin: savedUser.isAdmin,
                                     roleNames: savedUser.roleNames
                                 };

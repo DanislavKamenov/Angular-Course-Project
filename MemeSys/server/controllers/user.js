@@ -68,7 +68,7 @@ function editUser(req, res) {
         .update({ _id: userId }, userToUpdate, { new: true })
         .then(newUser => {
             const userToSend = {
-                id: newUser._id,
+                _id: newUser._id,
                 email: newUser.email,
                 name: newUser.name,
                 avatar: newUser.avatar,
@@ -76,10 +76,9 @@ function editUser(req, res) {
                 isAdmin: newUser.isAdmin
             };
 
-            //Implement token refresh on logged in user update.
-            // const token = generateWebToken(userToSend);
+            const token = generateWebToken(userToSend);
 
-            res.success( { user: userToSend }, 'User successfully edited.');
+            res.success( { user: userToSend, token }, 'User successfully edited.');
         })
         .catch(err => {
             res.error(err);

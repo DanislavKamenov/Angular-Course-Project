@@ -1,6 +1,6 @@
 <div class="form col-lg-6 jumbotron">
         <legend>Login</legend>  
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <fieldset>
             <div class="form-group">
                 <label for="email">Email address</label>
@@ -21,7 +21,7 @@
                     <div [hidden]="!f.password.errors?.required">Password is required.</div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid" (click)="onSubmit()">Submit</button>
+            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
         </fieldset>
     </form>
 </div>

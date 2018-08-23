@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { User } from '../models/user.model';
 import { ServerToken } from '../models/server-token.model';
 import { ServerResponse } from '../models/server-response.model';
+import { AuthService } from '../../authentication/shared/services/auth.service';
 
 const root = '/api/';
 
@@ -18,6 +19,7 @@ export class UserService {
 
     constructor(
         private http: HttpClient,
+        private authService: AuthService,
         private jwtHelper: JwtHelperService) { }
 
     getAllUsers(): Observable<User[]> {
@@ -28,14 +30,13 @@ export class UserService {
         );
     }
 
-    editUser(avatar: string, user: User): Observable<User> {
-        let editedUser = user;
-        editedUser.avatar = avatar;
-        const editUrl = `${this.allUrl}${user._id}`;
+    editUser(userId: string, userProps: Object): Observable<User> {
+        const editUrl = `${this.allUrl}${userId}`;
 
         return this.http
-            .put<ServerResponse<User>>(editUrl, editedUser)
+            .put<ServerResponse<User>>(editUrl, userProps)
             .pipe(
+                tap(res => this.authService.saveToken(res.data.token)),
                 map(res => res.data.user)
             );
     }

@@ -1,0 +1,8 @@
+<div class="profile-panel">
+    <h3>Profile of: {{user.name}}</h3>
+    <app-user-view *ngIf="hideEditForm else userEdit" [user]="user"></app-user-view>
+    <ng-template #userEdit>
+        <app-user-edit [user]="user" (update)="profileUpdateHandler($event)"></app-user-edit>
+    </ng-template>
+    <button class="btn btn-info" [class.btn-danger]="!hideEditForm" (click)="onEditClick()">{{hideEditForm ? 'Edit' : 'Cancel'}}</button>
+</div>

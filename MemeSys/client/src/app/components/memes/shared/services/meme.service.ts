@@ -4,9 +4,9 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Meme } from '../models/view-models/meme.model';
-import { ServerResponse } from '../../../shared/models/server-response.model';
+import { ServerResponse } from '../../../sharedModule/models/server-response.model';
 import { MemeInput } from '../models/input-models/meme-input.model';
-import { UserService } from '../../../shared/services/user.service';
+import { UserService } from '../../../sharedModule/services/user.service';
 
 const root: string = '/api/';
 

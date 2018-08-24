@@ -3,14 +3,15 @@ import { Subscription } from 'rxjs';
 
 import { Meme } from '../shared/models/view-models/meme.model';
 import { MemeService } from '../shared/services/meme.service';
-import { UserService } from '../../shared/services/user.service';
-import { ModalService } from '../../shared/services/modal.service';
-import { ChangeEvent } from '../../shared/models/change-event.model';
+import { UserService } from '../../sharedModule/services/user.service';
+import { ModalService } from '../../sharedModule/services/modal.service';
+import { ChangeEvent } from '../../sharedModule/models/change-event.model';
+import { Router } from '../../../../../node_modules/@angular/router';
 
 @Component({
     selector: 'app-meme',
     templateUrl: './meme.component.html',
-    styleUrls: ['./meme.component.css'],
+    styleUrls: ['./meme.component.css']
 })
 export class MemeComponent implements OnDestroy {
     @Input() meme: Meme;
@@ -21,7 +22,8 @@ export class MemeComponent implements OnDestroy {
     constructor(
         private memeService: MemeService,
         private userService: UserService,
-        private modalService: ModalService) { }
+        private modalService: ModalService,
+        private router: Router) { }
 
     ngOnDestroy(): void {
         if (this.voteSub) {
@@ -36,7 +38,10 @@ export class MemeComponent implements OnDestroy {
     onDeleteClick(memeId: string):void {
         this.deleteSub = this.memeService
             .deleteMeme(memeId)
-            .subscribe((meme) =>  this.memeChange.emit({reason: 'delete', data: meme}));
+            .subscribe((meme) =>  {
+                this.memeChange.emit({reason: 'delete', data: meme})
+                this.router.navigate(['/memes/']);
+            });
     }
 
     voteClickHandler(memeId: string, type: string): void {
@@ -55,7 +60,6 @@ export class MemeComponent implements OnDestroy {
     }
 
     hasUserUpVoted(meme: Meme): boolean {
-        //TODO: Improve this check
         if (this.userService.isLoggedIn()) {
             return this.memeService.hasUserUpVoted(meme);
         }

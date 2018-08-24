@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { StaticCustomValidators } from '../../shared/validators/static-custom.validators';
-import { CustomValidators } from '../../shared/validators/custom.validators';
+import { StaticCustomValidators } from '../../sharedModule/validators/static-custom.validators';
+import { CustomValidators } from '../../sharedModule/validators/custom.validators';
 import { AuthService } from '../shared/services/auth.service';
 
 @Component({

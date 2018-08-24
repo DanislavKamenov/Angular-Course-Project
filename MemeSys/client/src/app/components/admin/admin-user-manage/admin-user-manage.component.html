@@ -11,8 +11,8 @@
     <tbody>
         <tr class="table-secondary" app-user-manage-row *ngFor="let u of users" [user]="u" (update)="handleUserUpdate($event)"></tr>
         <tr class="table-dark">
-            <th scope="row">Total</th>
-            <td>20</td>
+            <th scope="row">Total: {{users?.length}}</th>
+            <td></td>
             <td></td>
             <td></td>
         </tr>

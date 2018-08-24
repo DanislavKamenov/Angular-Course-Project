@@ -13,9 +13,17 @@
     color: #fff;
     background-color: #18BC9C;
     border-color: #18BC9C;
-    /* &.active {
-      border-color: #18BC9C;
-      color: #18BC9C;
-      background-color: #fff;    
-    } */
   }
+
+.tab-container {
+    background: gray;
+}
+
+.customTab .nav-tabs .nav-link.active
+{
+    color:black;
+}
+.customTab .nav-tabs .nav-link
+{
+    color:cyan;
+}

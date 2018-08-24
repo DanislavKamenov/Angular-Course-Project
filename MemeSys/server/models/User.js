@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     },
     avatar: {
         type: mongoose.SchemaTypes.String,
-        default: 'https://www.georeferencer.com/static/img/person.png'
+        default: 'assets/img/default-avatar.jpg'
     },
     roles: [{
         type: mongoose.SchemaTypes.ObjectId, ref: 'Role',

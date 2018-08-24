@@ -1,9 +1,9 @@
-import { Component, OnDestroy, Input, OnChanges } from '@angular/core';
+import { Component, OnDestroy, OnChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
-import { CommentService } from '../../shared/services/comment.service';
+import { CommentService } from '../../sharedModule/services/comment.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -11,7 +11,6 @@ import { CommentService } from '../../shared/services/comment.service';
   styleUrls: ['./comment-create.component.css']
 })
 export class CommentCreateComponent implements OnDestroy, OnChanges {
-    @Input() isFormHidden: boolean;
     commentForm: FormGroup;
     createSub: Subscription;
 

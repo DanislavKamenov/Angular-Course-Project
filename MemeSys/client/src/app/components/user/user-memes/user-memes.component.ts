@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { SharedDataService } from '../../shared/services/sharedData.service';
-import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user.model';
+import { SharedDataService } from '../../sharedModule/services/sharedData.service';
+import { UserService } from '../../sharedModule/services/user.service';
+import { User } from '../../sharedModule/models/user.model';
 
 @Component({
     selector: 'app-user-memes',

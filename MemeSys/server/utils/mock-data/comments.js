@@ -1,5 +1,5 @@
 module.exports = {
-    Образование: [
+    Education: [
         {
             content: 'Nakov is cool!'
         },

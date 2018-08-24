@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { User } from '../../shared/models/user.model';
-import { UserService } from '../../shared/services/user.service';
+import { User } from '../../sharedModule/models/user.model';
+import { UserService } from '../../sharedModule/services/user.service';
 import { AuthService } from '../../authentication/shared/services/auth.service';
 
 
@@ -11,10 +11,14 @@ import { AuthService } from '../../authentication/shared/services/auth.service';
     styleUrls: ['./user-dropdown.component.css']
 })
 export class UserDropdownComponent {
-
+    state = 'hidden';
     constructor(
         private userService: UserService,
         private authService: AuthService) { }
+
+    changeState() {
+        this.state = 'expand';
+    }
 
     logout(): void {
         this.authService.logout();

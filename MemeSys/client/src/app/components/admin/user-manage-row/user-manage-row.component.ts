@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { StaticCustomValidators } from '../../shared/validators/static-custom.validators';
-import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user.model';
-import { ChangeEvent } from '../../shared/models/change-event.model';
-import { ModalService } from '../../shared/services/modal.service';
+import { StaticCustomValidators } from '../../sharedModule/validators/static-custom.validators';
+import { UserService } from '../../sharedModule/services/user.service';
+import { User } from '../../sharedModule/models/user.model';
+import { ChangeEvent } from '../../sharedModule/models/change-event.model';
+import { ModalService } from '../../sharedModule/services/modal.service';
 
 @Component({
     selector: '[app-user-manage-row]',
@@ -57,7 +57,8 @@ export class UserManageRowComponent implements OnInit, OnDestroy {
         }
 
         if (this.avatarEditForm.valid) {
-            this.editSub = this.userService.editUser(this.user._id, this.avatarEditForm.value).subscribe();
+            this.editSub = this.userService.editUser(this.user._id, this.avatarEditForm.value)
+                .subscribe(editedUser => this.event.emit({reason: 'edit', data: editedUser}));
             this.showEditAvatar = false;
         }
     }

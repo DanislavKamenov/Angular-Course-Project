@@ -1,20 +1,19 @@
-    <th scope="row">{{user.name}}</th>
-    <td>{{user.roleNames.join(', ')}}</td>
-    <td [hidden]="!showEditAvatar">
-        <form [formGroup]="avatarEditForm" (ngSubmit)="onSubmit()">
-            <div class="form-group row">
-                <div class="input-style-size col-xs-2">
-                    <input type="text" value="{{user.avatar}}" name="avatar" formControlName="avatar" [ngClass]="{'is-invalid': (f.avatar.touched || f.avatar.dirty) && f.avatar.errors}">
-                    <div class="invalid-feedback">
-                        <div [hidden]="!f.avatar.errors?.memtype">Avatar must be of type jgp, jpeg or png.</div>
-                    </div>
-                    <button class="submit btn btn-success" [disabled]="avatarEditForm.invalid || avatarEditForm.pristine">Submit</button>
-                </div>
+<th scope="row">{{user.name}}</th>
+<td>{{user.roleNames.join(', ')}}</td>
+<td [hidden]="!showEditAvatar">
+    <form [formGroup]="avatarEditForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row input-style-size col-xs-2">
+            <input type="text" class="form-control col-sm-6" value="{{user.avatar}}" name="avatar" formControlName="avatar" 
+                [ngClass]="{'is-invalid': (f.avatar.touched || f.avatar.dirty) && f.avatar.errors}">
+            <button class="submit btn btn-success" [disabled]="avatarEditForm.invalid || avatarEditForm.pristine">Submit</button>
+            <div class="invalid-feedback">
+                <div [hidden]="!f.avatar.errors?.memtype">Avatar must be of type jgp, jpeg or png.</div>
             </div>
-        </form>
-    </td>
-    <td [hidden]="showEditAvatar">{{user.avatar.slice(0, 20)}}...</td>
-    <td>
-        <button class="btn btn-success" [class.btn-info]="showEditAvatar" (click)="onEditClick()">{{showEditAvatar ? 'Cancel' : 'Edit Avatar'}}</button>
-        <button class="btn btn-danger" (click)="destroyClickHandler(user)">Destroy</button>
-    </td>
+        </div>
+    </form>
+</td>
+<td [hidden]="showEditAvatar">{{user.avatar | urlShorten:20}}</td>
+<td>
+    <button class="btn btn-success" [class.btn-info]="showEditAvatar" (click)="onEditClick()">{{showEditAvatar ? 'Cancel' : 'Edit Avatar'}}</button>
+    <button class="btn btn-danger" (click)="destroyClickHandler(user)">Destroy</button>
+</td>

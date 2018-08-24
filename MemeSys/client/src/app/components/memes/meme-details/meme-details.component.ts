@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Meme } from '../shared/models/view-models/meme.model';
 import { MemeService } from '../shared/services/meme.service';
-import { CommentService } from '../../shared/services/comment.service';
+import { CommentService } from '../../sharedModule/services/comment.service';
 
 @Component({
     selector: 'app-meme-details',
@@ -28,7 +28,7 @@ export class MemeDetailsComponent implements OnInit {
         
         const memeId = this.route.snapshot.paramMap.get('id');
         this.memeSub = this.memeService.getOneMemeById(memeId).subscribe(meme => this.meme = meme);
-        this.commentSub = this.commentService.commentStateSource
+        this.commentSub = this.commentService.commentChanges$
             .subscribe(() => {
                 this.memeSub.unsubscribe();
                 this.memeSub = this.memeService.getOneMemeById(memeId).subscribe(meme => this.meme = meme);

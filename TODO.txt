@@ -1,5 +1,0 @@
-TODO: 
-Improve commentService change emitting.
-Implement total Users counter.
-Fix bug that loggs edited user after admin edits avatar.
-Do final code revision before project submit.

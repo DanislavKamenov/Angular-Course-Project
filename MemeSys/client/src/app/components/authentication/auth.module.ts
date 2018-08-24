@@ -11,7 +11,7 @@ import { RegisterPasswordInfoComponent } from './register-password-info/register
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        AuthRoutingModule,
+        AuthRoutingModule
     ],
     declarations: [LoginFormComponent, RegisterFormComponent, RegisterPasswordInfoComponent]
 })

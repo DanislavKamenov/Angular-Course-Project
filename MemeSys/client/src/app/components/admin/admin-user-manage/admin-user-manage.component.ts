@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { User } from '../../shared/models/user.model';
-import { UserService } from '../../shared/services/user.service';
-import { ChangeEvent } from '../../shared/models/change-event.model';
+import { User } from '../../sharedModule/models/user.model';
+import { UserService } from '../../sharedModule/services/user.service';
+import { ChangeEvent } from '../../sharedModule/models/change-event.model';
 
 @Component({
     selector: 'app-admin-user-manage',
@@ -23,7 +23,16 @@ export class AdminUserManageComponent implements OnInit {
     }
 
     handleUserUpdate(e: ChangeEvent<User>): void {
-        const deletedUser = e.data;
-        this.users = this.users.filter(u => u._id !== deletedUser._id);
+        switch(e.reason) {
+            case 'edit':
+            const updatedUser = e.data;
+            const userIdx = this.users.findIndex(u => u._id === updatedUser._id);
+            this.users[userIdx] = updatedUser;
+                return;
+            case 'delete': 
+            const deletedUser = e.data;
+            this.users = this.users.filter(u => u._id !== deletedUser._id);
+            return;
+        }
     }
 }

@@ -12,6 +12,7 @@ import { AdminCategoryManageComponent } from './admin-category-manage/admin-cate
 import { AdminStatisticsComponent } from './admin-statistics/admin-statistics.component';
 import { AdminUserManageComponent } from './admin-user-manage/admin-user-manage.component';
 import { UserManageRowComponent } from './user-manage-row/user-manage-row.component';
+import { SharedModule } from '../sharedModule/shared.module';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { UserManageRowComponent } from './user-manage-row/user-manage-row.compon
         AdminRoutingModule,
         RouterModule,
         CategoryModule,
-        NgbModule
+        NgbModule,
+        SharedModule
     ],
     exports: [CategoryModule],
     declarations: [

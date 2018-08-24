@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/models/user.model';
-import { ChangeEvent } from '../../shared/models/change-event.model';
+import { UserService } from '../../sharedModule/services/user.service';
+import { User } from '../../sharedModule/models/user.model';
+import { ChangeEvent } from '../../sharedModule/models/change-event.model';
 
 @Component({
     selector: 'app-profile-panel',

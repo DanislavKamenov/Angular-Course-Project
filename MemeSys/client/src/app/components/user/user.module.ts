@@ -9,6 +9,7 @@ import { ProfilePanelComponent } from './profile-panel/profile-panel.component';
 import { UserViewComponent } from './user-view/user-view.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserMemesComponent } from './user-memes/user-memes.component';
+import { SharedModule } from '../sharedModule/shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { UserMemesComponent } from './user-memes/user-memes.component';
     ReactiveFormsModule,
     UserRoutingModule,
     NgbModule,
-    MemesModule
+    MemesModule,
+    SharedModule
   ],
   exports: [
       

@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
-import { StaticCustomValidators } from '../../shared/validators/static-custom.validators';
+import { StaticCustomValidators } from '../../sharedModule/validators/static-custom.validators';
 import { MemeService } from '../shared/services/meme.service';
 import { Category } from '../../category/models/view-models/category.model';
-import { UserService } from '../../shared/services/user.service';
-import { SharedDataService } from '../../shared/services/sharedData.service';
+import { UserService } from '../../sharedModule/services/user.service';
+import { SharedDataService } from '../../sharedModule/services/sharedData.service';
 import { CategoryService } from '../../category/services/category.service';
 
 @Component({

@@ -10,7 +10,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FooterComponent } from './footer/footer.component';
 import { SuccessInterceptor } from './interceptors/success.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../sharedModule/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserDropdownComponent } from './user-dropdown/user-dropdown.component';
 

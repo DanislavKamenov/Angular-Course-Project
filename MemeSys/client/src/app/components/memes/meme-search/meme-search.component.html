@@ -3,5 +3,11 @@
     <input #searchField class="form-control col-lg-7 bg-secondary text-white" type="text" 
         placeholder="Enter a part of the title and we'll do our best to find your favorite meme"
         (keyup)="search(searchField.value)">
-    <app-meme *ngFor="let m of memes$ | async as memes" [meme]="m"></app-meme>
+    <div class="results-container" *ngIf="memes$ | async as memes">
+        <app-meme [@fade]="in" *ngFor="let m of memes" [meme]="m" (memeUpdate)="handleMemeUpdate($event, searchField.value)"></app-meme>
+        <div class="nothing-found" [hidden]="memes.length > 0">We're sorry. It seems we can't find what you're looking for.
+            <div><img src="assets/img/nothing-found.png" alt="nothing-found"></div>
+        </div>
+    </div>
+    
 </div>

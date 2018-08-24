@@ -1,17 +1,19 @@
 <ngb-tabset class="tabs bg-primary" [justify]="justifySetting">
     <ngb-tab id="test" title="Website Statistics">
         <ng-template ngbTabContent>
-            <app-admin-statistics></app-admin-statistics>
+            <app-admin-statistics [@fade]="in"></app-admin-statistics>
         </ng-template>
     </ngb-tab>
     <ngb-tab title="Manage Categories">
         <ng-template ngbTabContent>
-            <app-admin-category-manage></app-admin-category-manage>
+            <app-admin-category-manage [@fade]="in"></app-admin-category-manage>
         </ng-template>
     </ngb-tab>
-    <ngb-tab title="Manage Users">
-        <ng-template ngbTabContent>
-            <app-admin-user-manage></app-admin-user-manage>
-        </ng-template>
-    </ngb-tab>
+    <div class="customTab">
+        <ngb-tab title="Manage Users">
+            <ng-template ngbTabContent>
+                <app-admin-user-manage [@fade]="in"></app-admin-user-manage>
+            </ng-template>
+        </ngb-tab>
+    </div>
 </ngb-tabset>

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ServerResponse } from '../../shared/models/server-response.model';
+import { ServerResponse } from '../../sharedModule/models/server-response.model';
 import { Category } from '../models/view-models/category.model';
 import { CategoryInput } from '../models/input-models/category-input.model';
 
@@ -16,7 +16,7 @@ export class CategoryService {
     private allUrl: string = `${root}category/`;
     private allAndMemes: string = `${this.allUrl}memes`;
     
-    constructor(private http: HttpClient) { console.log('cat service'); }
+    constructor(private http: HttpClient) { }
 
     getAllCategories(): Observable<Category[]> {
         return this.http

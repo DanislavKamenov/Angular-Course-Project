@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../sharedModule/shared.module';
 import { MemesRoutingModule } from './memes-routing.module';
 
 import { MemeComponent } from './meme/meme.component';

@@ -1,0 +1,20 @@
+h1, h3 {
+    text-align: center;
+}
+
+article {
+    margin: 100px auto;
+    font-size: 24px;
+}
+
+.greeting {
+    text-align: center;
+}
+
+.controls {
+    text-align: center;
+}
+
+a {
+    margin: 10px;
+}

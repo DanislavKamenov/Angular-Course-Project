@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
-import { SharedDataService } from '../../../shared/services/sharedData.service';
+import { SharedDataService } from '../../../sharedModule/services/sharedData.service';
 import { LoginInput } from '../models/login.input-model';
 import { RegisterInput } from '../models/register.input-model';
-import { ServerResponse } from '../../../shared/models/server-response.model';
-import { ServerToken } from '../../../shared/models/server-token.model';
+import { ServerResponse } from '../../../sharedModule/models/server-response.model';
+import { ServerToken } from '../../../sharedModule/models/server-token.model';
 
 const root = '/api/';
 

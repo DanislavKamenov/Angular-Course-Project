@@ -1,3 +1,21 @@
-<p>
-  home works!
-</p>
+<header>
+    <h1>Welcome to MemeSys</h1>
+    <h3>Bulgaria's #1 meme browsing application.</h3>
+</header>
+<article *ngIf="!isUserLoggedIn() else greeting">
+    <p>Feel free to explore our website and browse trough some of the hottest memes.</p>
+    <p>Show us your great sense of humour! Make an account and start posting memes of your own!</p>
+    <div class="controls">
+            <a class="btn btn-primary" routerLink="/auth/login">Click here to Login</a>
+        <a class="btn btn-primary" routerLink="/auth/register">Click here to Register</a>
+    </div>
+</article>
+<ng-template #greeting>
+    <article class="greeting">
+        <p>Welcome {{user.name}}.</p>
+        <p>Enjoy your stay.</p>
+        <div class="controls">
+            <a class="btn btn-primary" routerLink="/memes">Click here to browse some memes</a>
+        </div>
+    </article>
+</ng-template>

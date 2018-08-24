@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
-import { StaticCustomValidators } from '../../shared/validators/static-custom.validators';
-import { SharedDataService } from '../../shared/services/sharedData.service';
+import { StaticCustomValidators } from '../../sharedModule/validators/static-custom.validators';
+import { SharedDataService } from '../../sharedModule/services/sharedData.service';
 import { CategoryService } from '../services/category.service';
-import { UserService } from '../../shared/services/user.service';
+import { UserService } from '../../sharedModule/services/user.service';
 
 @Component({
     selector: 'app-category-create',

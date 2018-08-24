@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { MemeService } from '../shared/services/meme.service';
-import { SharedDataService } from '../../shared/services/sharedData.service';
+import { SharedDataService } from '../../sharedModule/services/sharedData.service';
 import { Meme } from '../shared/models/view-models/meme.model';
-import { ChangeEvent } from '../../shared/models/change-event.model';
+import { ChangeEvent } from '../../sharedModule/models/change-event.model';
 
 @Component({
     selector: 'app-meme-list',

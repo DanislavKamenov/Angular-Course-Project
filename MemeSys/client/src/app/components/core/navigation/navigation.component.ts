@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { UserService } from '../../shared/services/user.service';
+import { UserService } from '../../sharedModule/services/user.service';
 
 @Component({
     selector: 'app-navigation',

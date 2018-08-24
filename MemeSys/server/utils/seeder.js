@@ -51,7 +51,7 @@ function seedMemesWithUser() {
                         .create(memeArr)
                         .then((memes) => {
                             console.log('memes seeded!');
-                            const educationEntity = memes.filter(m => m.title === 'Образование')[0];
+                            const educationEntity = memes.filter(m => m.title === 'Education')[0];
                             const tasseractsEntity = memes.filter(m => m.title === 'Tasseracts')[0];
                             seedCommentsWithUser(educationEntity, admin._id);
                             seedCommentsWithUser(tasseractsEntity, admin._id);
@@ -84,7 +84,7 @@ module.exports = {
                     let admin = {
                         email: 'admin@admin.bg',
                         name: 'Admin',
-                        password: '123',
+                        password: 'asd1',
                         roles: [roles[0]._id, roles[1]._id]
                     };
 

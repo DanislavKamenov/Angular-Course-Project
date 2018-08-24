@@ -10,8 +10,8 @@ import {
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
-import { UserService } from '../../../shared/services/user.service';
-import { ModalService } from '../../../shared/services/modal.service';
+import { UserService } from '../../../sharedModule/services/user.service';
+import { ModalService } from '../../../sharedModule/services/modal.service';
 
 @Injectable({
     providedIn: 'root'

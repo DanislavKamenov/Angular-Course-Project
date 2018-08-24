@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { User } from '../../shared/models/user.model';
-import { StaticCustomValidators } from '../../shared/validators/static-custom.validators';
-import { UserService } from '../../shared/services/user.service';
-import { ChangeEvent } from '../../shared/models/change-event.model';
+import { User } from '../../sharedModule/models/user.model';
+import { StaticCustomValidators } from '../../sharedModule/validators/static-custom.validators';
+import { UserService } from '../../sharedModule/services/user.service';
+import { ChangeEvent } from '../../sharedModule/models/change-event.model';
 
 @Component({
     selector: 'app-user-edit',
@@ -37,7 +37,7 @@ export class UserEditComponent implements OnInit {
     onSubmit() {
         if (this.userEditForm.valid) {
             this.userService
-                .editUser(this.user._id, this.userEditForm.value)
+                .editUserAndAuthenticate(this.user._id, this.userEditForm.value)
                 .subscribe(updatedUser => this.event.emit({reason: 'edit', data: updatedUser}));
         }
     }

@@ -1,4 +1,4 @@
-import { User } from "../../../shared/models/user.model";
+import { User } from "../../../sharedModule/models/user.model";
 import { Meme } from "../../../memes/shared/models/view-models/meme.model";
 
 export interface Category {

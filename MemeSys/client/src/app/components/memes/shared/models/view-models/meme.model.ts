@@ -1,9 +1,9 @@
-import { User } from '../../../../shared/models/user.model';
-import { Comment } from '../../../../shared/models/comment.model';
+import { User } from '../../../../sharedModule/models/user.model';
+import { Comment } from '../../../../sharedModule/models/comment.model';
 
 export interface Meme {
     _id: string;
-    creator: string;
+    creator: User | string;
     title: string;
     image: string;
     category: string;

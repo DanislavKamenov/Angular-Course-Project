@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserRoutingModule } from './user-routing.module';
+import { MemesModule } from '../memes/memes.module';
 
 import { ProfilePanelComponent } from './profile-panel/profile-panel.component';
 import { UserViewComponent } from './user-view/user-view.component';
@@ -14,7 +15,8 @@ import { UserMemesComponent } from './user-memes/user-memes.component';
     CommonModule,
     ReactiveFormsModule,
     UserRoutingModule,
-    NgbModule
+    NgbModule,
+    MemesModule
   ],
   exports: [
       

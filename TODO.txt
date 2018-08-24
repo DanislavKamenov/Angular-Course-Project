@@ -1,6 +1,5 @@
 TODO: 
 Improve commentService change emitting.
-Revise behaviour subject implementation.
-Revise OR check, in form validation.
-Move sub/unsub from auth service to forms.
-Revise Memetype regex validator.
+Implement total Users counter.
+Fix bug that loggs edited user after admin edits avatar.
+Do final code revision before project submit.

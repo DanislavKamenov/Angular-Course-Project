@@ -1,17 +1,17 @@
 <h4>Popular:</h4>
-    <ul class="list-group" *ngIf="currentCategory$ | async as cat">
-        <a (click)="onClick('hot')" routerLink="/memes/">
-            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
-                [ngClass]="{'active': cat === 'hot'}">
-                Hot
-                <img src="assets/img/hot.png" alt="category-logo">
-            </li>
-        </a>
-        <a (click)="onClick('fresh')" routerLink="/memes/">
-            <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
-                [ngClass]="{'active': cat === 'fresh'}">
-                Fresh
-                <img src="assets/img/fresh.png" alt="category-logo">
-            </li>
-        </a>
-    </ul>
+<ul class="list-group" *ngIf="currentCategory$ | async as cat">
+    <a (click)="onClick('hot')" routerLink="/memes/">
+        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+            [ngClass]="{'active': cat === 'hot'}">
+            Hot
+            <img src="assets/img/hot.png" alt="category-logo">
+        </li>
+    </a>
+    <a (click)="onClick('fresh')" routerLink="/memes/">
+        <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" 
+            [ngClass]="{'active': cat === 'fresh'}">
+            Fresh
+            <img src="assets/img/fresh.png" alt="category-logo">
+        </li>
+    </a>
+</ul>

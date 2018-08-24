@@ -24,7 +24,8 @@ export class MemeListComponent implements OnInit, OnDestroy {
         private dataService: SharedDataService) { }
 
     ngOnInit(): void {
-        this.categoryChanges = this.dataService.categoryChanges$.subscribe(category => this.category = category);
+        this.categoryChanges = this.dataService.categoryChanges$
+            .subscribe(category => this.category = category);
     }
 
     ngOnDestroy(): void {

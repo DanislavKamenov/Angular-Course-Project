@@ -71,6 +71,11 @@ export class MemeComponent implements OnDestroy {
         }
     }
 
+    canDelete(): boolean {
+        const user = this.userService.currentUser;
+        return user && (user.isAdmin || user._id === this.meme.creator);
+    }
+
     isUserAdmin(): boolean {
         const user = this.userService.currentUser;
         return user && user.isAdmin;

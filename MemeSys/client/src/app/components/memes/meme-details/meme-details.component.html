@@ -7,6 +7,7 @@
         <button class="btn text-center" [ngClass]="{
             'btn-primary': isFormHidden,
             'btn-danger': !isFormHidden}" (click)="showHideCommentForm()">{{isFormHidden ? 'Leave a comment' : 'Close form'}}</button>
+            <button class="back btn btn-primary" (click)="goBack()">Take me back</button>
     </div>
 </div>
 <app-comment-form [hidden]="isFormHidden" [isFormHidden]="isFormHidden"></app-comment-form>

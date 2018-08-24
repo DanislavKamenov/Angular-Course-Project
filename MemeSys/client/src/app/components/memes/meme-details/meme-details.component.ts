@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -20,7 +21,8 @@ export class MemeDetailsComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private memeService: MemeService,
-        private commentService: CommentService) { }
+        private commentService: CommentService,
+        private location: Location) { }
 
     ngOnInit(): void {
         
@@ -40,5 +42,9 @@ export class MemeDetailsComponent implements OnInit {
 
     showHideCommentForm(): void {
         this.isFormHidden = !this.isFormHidden;
+    }
+
+    goBack(): void {
+        this.location.back();
     }
 }

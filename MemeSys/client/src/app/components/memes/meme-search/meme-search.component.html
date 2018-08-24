@@ -1,0 +1,7 @@
+<div class="search-container">
+    <h3>Search for memes</h3>
+    <input #searchField class="form-control col-lg-7 bg-secondary text-white" type="text" 
+        placeholder="Enter a part of the title and we'll do our best to find your favorite meme"
+        (keyup)="search(searchField.value)">
+    <app-meme *ngFor="let m of memes$ | async as memes" [meme]="m"></app-meme>
+</div>

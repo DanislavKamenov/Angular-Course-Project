@@ -44,6 +44,10 @@ memeSchema.pre('save', function() {
     this.votes = this.upVoted.length - this.downVoted.length;
 });
 
+memeSchema.index({
+    title: 'text'
+});
+
 const Meme = mongoose.model('Meme', memeSchema);
 
 module.exports = Meme;

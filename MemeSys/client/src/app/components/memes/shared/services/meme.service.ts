@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Meme } from '../models/view-models/meme.model';
@@ -18,6 +18,8 @@ export class MemeService {
     private voteUrl: string = `${this.allMemesUrl}vote/`;
     private freshUrl: string = `${this.allMemesUrl}fresh/`;
     private createUrl: string = `${this.allMemesUrl}create/`;
+    private userUrl: string = `${this.allMemesUrl}user/`;
+    private searchUrl: string = `${this.allMemesUrl}search/`;
 
     constructor(
         private http: HttpClient,
@@ -29,6 +31,9 @@ export class MemeService {
                 return this.getMemesByVotes(-1, skip, limit);
             case 'fresh':
                 return this.getFreshMemes(-1, skip, limit);
+            case 'user':
+                const user = this.userService.currentUser;
+                return this.getUserMemes(user._id, skip, limit);
             default:
                 return this.getMemesByCategory(criteria, skip, limit);
         }
@@ -52,10 +57,25 @@ export class MemeService {
         return this.getMemesRequest(getCreationDateUrl);
     }
 
+    getUserMemes(userId: string, skip: number, limit: number): Observable<Meme[]> {
+        const getUserMemesUrl = `${this.userUrl}${userId}/${skip}/${limit}`;
+
+        return this.getMemesRequest(getUserMemesUrl);
+    }
+
     getMemesByCategory(catId: string, skip: number, limit: number): Observable<Meme[]> {
         const query = `?filter[category]=${catId}&[skip]=${skip}&[limit]=${limit}`;
 
         return this.getMemesRequest(this.allMemesUrl + query);
+    }
+
+    searchMemes(criteria: string): Observable<Meme[]> {
+        if (!criteria.trim()) {
+            return of([]);
+        }
+
+        const searchMemesUrl = `${this.searchUrl}${criteria}`;
+        return this.getMemesRequest(searchMemesUrl);
     }
 
     getOneMemeById(memeId: string): Observable<Meme> {

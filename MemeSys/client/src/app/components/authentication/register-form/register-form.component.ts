@@ -75,7 +75,7 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
                 .register(this.registerForm.value)
                 .subscribe((token) => {
                     this.authService.saveToken(token);
-                    this.router.navigate(['/home'])
+                    this.router.navigate(['/home']);
                 })
         }
     }

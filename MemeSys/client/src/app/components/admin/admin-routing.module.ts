@@ -5,7 +5,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { AdminGuard } from '../authentication/shared/guards/admin.guard';
 
 const adminRoutes: Routes = [
-    { path: 'panel', canActivate: [AdminGuard], component: AdminPanelComponent }
+    { path: 'panel', component: AdminPanelComponent }
 ];
 
 @NgModule({

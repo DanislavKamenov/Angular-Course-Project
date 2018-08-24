@@ -3,7 +3,9 @@ import {
     CanActivate,
     ActivatedRouteSnapshot,
     RouterStateSnapshot,
-    Router
+    Router,
+    CanLoad,
+    Route
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +16,7 @@ import { ModalService } from '../../../shared/services/modal.service';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad {
 
     constructor(
         private userService: UserService,
@@ -26,6 +28,14 @@ export class AuthGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
+        return this.isAllowedAccess();
+    }
+
+    canLoad(route: Route): boolean {
+        return this.isAllowedAccess();
+    }
+
+    isAllowedAccess(): boolean {
         if (this.userService.isLoggedIn()) {
             return true;
         }

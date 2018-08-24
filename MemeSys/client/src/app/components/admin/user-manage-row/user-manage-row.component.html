@@ -8,7 +8,7 @@
                     <div class="invalid-feedback">
                         <div [hidden]="!f.avatar.errors?.memtype">Avatar must be of type jgp, jpeg or png.</div>
                     </div>
-                    <button class="btn btn-success" [disabled]="avatarEditForm.invalid">Submit</button>
+                    <button class="submit btn btn-success" [disabled]="avatarEditForm.invalid || avatarEditForm.pristine">Submit</button>
                 </div>
             </div>
         </form>

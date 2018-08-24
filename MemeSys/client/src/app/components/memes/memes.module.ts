@@ -13,6 +13,7 @@ import { MemeDetailsComponent } from './meme-details/meme-details.component';
 import { CommentCreateComponent } from './comment-create/comment-create.component';
 import { MemeCreateComponent } from './meme-create/meme-create.component';
 import { CategoryModule } from '../category/category.module';
+import { MemeSearchComponent } from './meme-search/meme-search.component';
 
 @NgModule({
     imports: [
@@ -23,12 +24,14 @@ import { CategoryModule } from '../category/category.module';
         CategoryModule,
         MemesRoutingModule
     ],
+    exports: [MemeListComponent],
     declarations: [
         MemeComponent,
         MemeListComponent,
         MemePageComponent,
         MemeDetailsComponent,
         CommentCreateComponent,
-        MemeCreateComponent]
+        MemeCreateComponent,
+        MemeSearchComponent]
 })
 export class MemesModule { }

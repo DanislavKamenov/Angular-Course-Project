@@ -6,12 +6,16 @@ import { MemeDetailsComponent } from './meme-details/meme-details.component';
 import { MemeListComponent } from './meme-list/meme-list.component';
 import { AuthGuard } from '../authentication/shared/guards/auth.guard';
 import { MemeCreateComponent } from './meme-create/meme-create.component';
+import { MemeSearchComponent } from './meme-search/meme-search.component';
 
 const memeRoutes: Routes = [
-    { path: '', component: MemePageComponent, children: [
-            { path: 'meme/:id', canActivate: [AuthGuard], component: MemeDetailsComponent },
+    {
+        path: '', component: MemePageComponent, children: [
             { path: '', component: MemeListComponent }
-        ] },
+        ]
+    },
+    { path: 'meme/:id', canActivate: [AuthGuard], component: MemeDetailsComponent },
+    { path: 'search', canActivate: [AuthGuard], component: MemeSearchComponent },
     { path: 'create', canActivate: [AuthGuard], component: MemeCreateComponent }
 
 ]

@@ -1,6 +1,5 @@
 import {
     HttpRequest,
-    HttpResponse,
     HttpErrorResponse,
     HttpEvent,
     HttpHandler,
@@ -8,16 +7,14 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
 
     constructor(
-        private toastr: ToastrService,
-        private router: Router
+        private toastr: ToastrService
     ) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler):

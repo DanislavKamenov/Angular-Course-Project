@@ -27,12 +27,4 @@ export class CustomValidators implements OnDestroy {
             return thisControl.value !== otherControl.value ? { 'mustMatch': true } : null;
         };
     }
-
-    valueHasNotChanged(): ValidatorFn {
-        let valueHasNotChanged = {'valueHasNotChanged': true};
-        return (control: AbstractControl): ValidationErrors | null => {
-            control.valueChanges.subscribe(() => valueHasNotChanged = null);
-            return valueHasNotChanged;
-        }
-    }
 }

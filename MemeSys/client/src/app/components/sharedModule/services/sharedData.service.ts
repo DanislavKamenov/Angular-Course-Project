@@ -12,7 +12,7 @@ export class SharedDataService implements OnDestroy {
     categoryChanges$: Observable<string>;
     newCategory$: Observable<Category>;
     oldCategory: string;
-    currentCategory: string;
+    currentCategory: string = 'hot';
 
     constructor() { 
         this.categoryChangesSource = new BehaviorSubject<string>('hot');

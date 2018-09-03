@@ -19,7 +19,6 @@ export class HomeComponent implements OnInit {
     }
 
     get user(): User {
-        console.log('here');
         return this.userService.currentUser;
     }
 }
